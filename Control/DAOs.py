@@ -6,6 +6,9 @@ class AuthorDAO:
     def create_table(self):
         self.db.execute("CREATE TABLE author (id SERIAL PRIMARY KEY, name TEXT NOT NULL, address TEXT, telephone TEXT)")
 
+    def insert(self, author):
+        self.db.execute("""INSERT INTO author (name, address, telephone) VALUES (%s, %s, %s)""",(author.name, author.address, author.telephone))
+
 class BookDAO:
 
     def __init__(self, db):

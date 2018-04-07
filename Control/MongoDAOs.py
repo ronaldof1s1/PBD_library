@@ -11,7 +11,7 @@ class AuthorDAO:
         self.collection = db["Author"]
 
     def delete_table(self):
-        self.collection.remove()
+        self.db.drop_collection(self.collection)
 
     def insert(self, author):
         entry = {
@@ -72,7 +72,7 @@ class PublisherDAO:
         self.collection = db["Publisher"]
 
     def delete_table(self):
-        self.collection.remove()
+        self.db.drop_collection(self.collection)
 
     def insert(self, publisher):
         entry = {
@@ -122,8 +122,8 @@ class PublisherDAO:
         address = query["address"]
         telephone = query["telephone"]
 
-        publiher = Publisher(name, address, telephone)
-        return publiher
+        publisher = Publisher(name, address, telephone)
+        return publisher
 
 
 class LibraryUserDAO:
@@ -133,7 +133,7 @@ class LibraryUserDAO:
         self.collection = db["Library_user"]
 
     def delete_table(self):
-        self.collection.remove()
+        self.db.drop_collection(self.collection)
 
     def insert(self, user):
         entry = {
@@ -169,12 +169,18 @@ class LibraryUserDAO:
         update = {"telephone": telephone}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
-    def update(self, name, publisher):
+    def update_student(self, name, student):
+        filter = {"name": name}
+        update = {"student": student}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
+
+    def update(self, name, user):
         filter = {"name": name}
         update = {
-            "name": publisher.name,
-            "address": publisher.address,
-            "telephone": publisher.telephone
+            "name": user.name,
+            "address": user.address,
+            "telephone": user.telephone,
+            "student": user.student
         }
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
@@ -183,19 +189,16 @@ class LibraryUserDAO:
 
         address = query["address"]
         telephone = query["telephone"]
+        student = query["student"]
 
-        publiher = Publisher(name, address, telephone)
-        return publiher
+        user = LibraryUser(name, address, telephone, student)
+        return user
+
 
 class BookDAO:
 
     def __init__(self, db):
         self.db = db
-
-    def create_table(self):
-        self.db.execute("CREATE TABLE book (id SERIAL PRIMARY KEY, name TEXT NOT NULL UNIQUE, keywords TEXT[], " +
-                        "quantity INTEGER, publisher_id INTEGER REFERENCES  publisher (id) ON UPDATE CASCADE, " +
-                        "author_id INTEGER REFERENCES author (id))")
 
     def delete_table(self):
         self.db.execute("DROP TABLE IF EXISTS book")

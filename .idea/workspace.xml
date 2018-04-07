@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8aeccd4-7553-481f-9097-eaf098417357" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Control/AuthorDAO.py" afterPath="$PROJECT_DIR$/Control/AuthorDAO.py" />
-      <change beforePath="$PROJECT_DIR$/Control/BookDAO.py" afterPath="$PROJECT_DIR$/Control/BookDAO.py" />
-      <change beforePath="$PROJECT_DIR$/Control/CopyDAO.py" afterPath="$PROJECT_DIR$/Control/CopyDAO.py" />
-      <change beforePath="$PROJECT_DIR$/Control/LoanDAO.py" afterPath="$PROJECT_DIR$/Control/LoanDAO.py" />
-      <change beforePath="$PROJECT_DIR$/Control/PublisherDAO.py" afterPath="$PROJECT_DIR$/Control/PublisherDAO.py" />
-      <change beforePath="$PROJECT_DIR$/Control/UserDAO.py" afterPath="$PROJECT_DIR$/Control/UserDAO.py" />
-      <change beforePath="$PROJECT_DIR$/Model/Book.py" afterPath="$PROJECT_DIR$/Model/Book.py" />
-      <change beforePath="$PROJECT_DIR$/Model/Copy.py" afterPath="$PROJECT_DIR$/Model/Copy.py" />
+    <list default="true" id="e8aeccd4-7553-481f-9097-eaf098417357" name="Default" comment="Update SQL DAOs almost finished">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Control/DAOs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Control/PostgresqlDAOs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Control/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Control/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__main__.py" afterDir="false" />
     </list>
     <ignored path=".idea/vcs.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,100 +17,218 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AuthorDAO.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Control/AuthorDAO.py">
+      <file leaf-file-name="PostgresqlDAOs.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Control/PostgresqlDAOs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="117" lean-forward="false" selection-start-line="6" selection-start-column="117" selection-end-line="6" selection-end-column="117" />
+            <state relative-caret-position="85">
+              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
               <folding>
-                <marker date="1521504581372" expanded="true" signature="121:214" ph="CREATE TABLE... author" />
+                <element signature="e#89#2221#0" />
+                <element signature="e#121#133#0" />
+                <element signature="e#171#290#0" />
+                <element signature="e#328#414#0" />
+                <element signature="e#454#619#0" />
+                <element signature="e#659#881#0" />
+                <element signature="e#938#1054#0" />
+                <element signature="e#1109#1223#0" />
+                <element signature="e#1282#1400#0" />
+                <element signature="e#1445#1618#0" />
+                <element signature="e#1689#2003#0" />
+                <element signature="e#1808#1998#0" />
+                <element signature="e#1970#2221#0" />
+                <element signature="e#2275#2506#0" />
+                <element signature="e#2534#4978#0" />
+                <element signature="e#2566#2578#0" />
+                <element signature="e#2616#2776#0" />
+                <element signature="e#2814#2863#0" />
+                <element signature="e#2906#3083#0" />
+                <element signature="e#3126#3367#0" />
+                <element signature="e#3424#3543#0" />
+                <element signature="e#3598#3715#0" />
+                <element signature="e#3774#3895#0" />
+                <element signature="e#3944#4129#0" />
+                <element signature="e#4161#4557#0" />
+                <element signature="e#4602#4978#0" />
+                <element signature="e#5047#7728#0" />
+                <element signature="e#5105#5117#0" />
+                <element signature="e#5155#5335#0" />
+                <element signature="e#5373#5425#0" />
+                <element signature="e#5463#5655#0" />
+                <element signature="e#5693#5919#0" />
+                <element signature="e#5976#6098#0" />
+                <element signature="e#6153#6273#0" />
+                <element signature="e#6332#6456#0" />
+                <element signature="e#6511#6631#0" />
+                <element signature="e#6675#6871#0" />
+                <element signature="e#6877#7290#0" />
+                <element signature="e#7335#7728#0" />
+                <element signature="e#2530#6647#0" />
+                <element signature="e#1673#1685#0" />
+                <element signature="e#1723#2012#0" />
+                <element signature="e#2050#2134#0" />
+                <element signature="e#2172#2356#0" />
+                <element signature="e#2394#2606#0" />
+                <element signature="e#2663#2777#0" />
+                <element signature="e#2834#2948#0" />
+                <element signature="e#3000#3124#0" />
+                <element signature="e#3181#3295#0" />
+                <element signature="e#3335#3450#0" />
+                <element signature="e#3493#3608#0" />
+                <element signature="e#3672#3957#0" />
+                <element signature="e#4015#4284#0" />
+                <element signature="e#4327#4899#0" />
+                <element signature="e#5821#6226#0" />
+                <element signature="e#6264#6640#0" />
+                <element signature="e#9365#12653#0" />
+                <element signature="e#4954#4966#0" />
+                <element signature="e#5004#5204#0" />
+                <element signature="e#5242#5286#0" />
+                <element signature="e#5324#5639#0" />
+                <element signature="e#5677#6171#0" />
+                <element signature="e#6218#6320#0" />
+                <element signature="e#10796#11388#0" />
+                <element signature="e#11260#11889#0" />
+                <element signature="e#11964#12653#0" />
+                <element signature="e#14454#17707#0" />
+                <element signature="e#6375#6387#0" />
+                <element signature="e#6425#6725#0" />
+                <element signature="e#6763#6815#0" />
+                <element signature="e#6854#7500#0" />
+                <element signature="e#7154#7438#0" />
+                <element signature="e#7539#8327#0" />
+                <element signature="e#8045#8266#0" />
+                <element signature="e#16471#17011#0" />
+                <element signature="e#17063#17707#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Author.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Model/Author.py">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="24" lean-forward="true" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-              <folding />
+            <state relative-caret-position="1717">
+              <caret line="101" selection-start-line="101" selection-end-line="101" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserDAO.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Control/UserDAO.py">
+      <file leaf-file-name="__main__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__main__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state>
+              <caret column="21" selection-start-column="21" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MongoDAOs.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Control/MongoDAOs.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="388">
+              <caret line="150" column="41" selection-start-line="150" selection-start-column="41" selection-end-line="150" selection-end-column="41" />
               <folding>
-                <marker date="1521503873460" expanded="true" signature="119:241" ph="CREATE TABLE... user" />
+                <element signature="e#123#161#0" />
+                <element signature="e#212#231#0" />
+                <element signature="e#276#436#0" />
+                <element signature="e#489#690#0" />
+                <element signature="e#744#862#0" />
+                <element signature="e#1147#1261#0" />
+                <element signature="e#1140#1282#0" />
+                <element signature="e#1483#1656#0" />
+                <element signature="e#2132#2510#0" />
+                <element signature="e#1880#1934#0" />
+                <element signature="e#1978#2002#0" />
+                <element signature="e#2048#2236#0" />
+                <element signature="e#2558#2706#0" />
+                <element signature="e#2767#2913#0" />
+                <element signature="e#2978#3128#0" />
+                <element signature="e#3180#3443#0" />
+                <element signature="e#3396#3596#0" />
+                <element signature="e#5079#5091#0" />
+                <element signature="e#3753#3777#0" />
+                <element signature="e#3820#4001#0" />
+                <element signature="e#4308#4446#0" />
+                <element signature="e#4501#4637#0" />
+                <element signature="e#4696#4836#0" />
+                <element signature="e#4885#5135#0" />
+                <element signature="e#5180#5383#0" />
+                <element signature="e#7808#12110#0" />
+                <element signature="e#7840#7852#0" />
+                <element signature="e#7890#8179#0" />
+                <element signature="e#8217#8301#0" />
+                <element signature="e#8339#8523#0" />
+                <element signature="e#8561#8773#0" />
+                <element signature="e#8830#8944#0" />
+                <element signature="e#9001#9115#0" />
+                <element signature="e#9167#9291#0" />
+                <element signature="e#9348#9462#0" />
+                <element signature="e#9502#9617#0" />
+                <element signature="e#9660#9775#0" />
+                <element signature="e#9839#10124#0" />
+                <element signature="e#10182#10451#0" />
+                <element signature="e#10494#11066#0" />
+                <element signature="e#11099#11691#0" />
+                <element signature="e#11216#11605#0" />
+                <element signature="e#11736#12110#0" />
+                <element signature="e#11857#12022#0" />
+                <element signature="e#12133#15359#0" />
+                <element signature="e#12165#12177#0" />
+                <element signature="e#12215#12415#0" />
+                <element signature="e#12453#12497#0" />
+                <element signature="e#12535#12850#0" />
+                <element signature="e#12888#13382#0" />
+                <element signature="e#13429#13531#0" />
+                <element signature="e#13564#13957#0" />
+                <element signature="e#13681#13871#0" />
+                <element signature="e#14016#14645#0" />
+                <element signature="e#14398#14559#0" />
+                <element signature="e#14707#15359#0" />
+                <element signature="e#15105#15266#0" />
+                <element signature="e#15382#18514#0" />
+                <element signature="e#15414#15426#0" />
+                <element signature="e#15464#15764#0" />
+                <element signature="e#15802#15854#0" />
+                <element signature="e#15893#16539#0" />
+                <element signature="e#16193#16477#0" />
+                <element signature="e#16578#17366#0" />
+                <element signature="e#17084#17305#0" />
+                <element signature="e#17399#17939#0" />
+                <element signature="e#17516#17853#0" />
+                <element signature="e#17991#18514#0" />
+                <element signature="e#18118#18426#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Book.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Model/Book.py">
+      <file leaf-file-name="Models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Model/Models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="56" lean-forward="false" selection-start-line="2" selection-start-column="56" selection-end-line="2" selection-end-column="56" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PublisherDAO.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Control/PublisherDAO.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding>
-                <marker date="1521503873420" expanded="true" signature="124:229" ph="CREATE TABLE... publisher" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookDAO.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Control/BookDAO.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="116" lean-forward="false" selection-start-line="6" selection-start-column="116" selection-end-line="6" selection-end-column="116" />
-              <folding>
-                <marker date="1521504643492" expanded="true" signature="119:288" ph="CREATE TABLE... book" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoanDAO.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Control/LoanDAO.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="156" lean-forward="true" selection-start-line="6" selection-start-column="156" selection-end-line="6" selection-end-column="156" />
-              <folding>
-                <marker date="1521504665956" expanded="true" signature="119:250" ph="CREATE TABLE... loan" />
-                <marker date="1521504665956" expanded="true" signature="119:298" ph="CREATE TABLE... loan" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CopyDAO.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Control/CopyDAO.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="6" column="138" lean-forward="true" selection-start-line="6" selection-start-column="138" selection-end-line="6" selection-end-column="138" />
-              <folding>
-                <marker date="1521504324880" expanded="true" signature="119:230" ph="CREATE TABLE... copy" />
-              </folding>
+            <state relative-caret-position="297">
+              <caret line="49" column="83" selection-start-line="49" selection-start-column="83" selection-end-line="49" selection-end-column="83" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>&quot;&quot;&quot;</find>
+      <find>DROP TABLE</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>&quot;</replace>
+      <replace>DROP TABLE IF EXISTS</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -127,11 +240,22 @@
         <option value="$PROJECT_DIR$/Control/PublisherDAO.py" />
         <option value="$PROJECT_DIR$/Control/UserDAO.py" />
         <option value="$PROJECT_DIR$/Model/Copy.py" />
-        <option value="$PROJECT_DIR$/Control/CopyDAO.py" />
         <option value="$PROJECT_DIR$/Control/AuthorDAO.py" />
         <option value="$PROJECT_DIR$/Model/Book.py" />
         <option value="$PROJECT_DIR$/Control/BookDAO.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/__init__.py" />
+        <option value="$PROJECT_DIR$/Control/CopyDAO.py" />
         <option value="$PROJECT_DIR$/Control/LoanDAO.py" />
+        <option value="$PROJECT_DIR$/Control/__init__.py" />
+        <option value="$PROJECT_DIR$/Model/LibraryUser.py" />
+        <option value="$PROJECT_DIR$/Model/__init__.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/Model/Models.py" />
+        <option value="$PROJECT_DIR$/Control/DAOs.py" />
+        <option value="$PROJECT_DIR$/Control/PostgresqlDAOs.py" />
+        <option value="$PROJECT_DIR$/__main__.py" />
+        <option value="$PROJECT_DIR$/Control/MongoDAOs.py" />
       </list>
     </option>
   </component>
@@ -142,26 +266,16 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="275" />
-    <option name="y" value="27" />
+    <option name="x" value="260" />
+    <option name="y" value="20" />
     <option name="width" value="1400" />
-    <option name="height" value="961" />
+    <option name="height" value="990" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -187,7 +301,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -205,9 +318,6 @@
         </RuleState>
       </list>
     </option>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -227,34 +337,107 @@
       <option name="project" value="LOCAL" />
       <updated>1521500416366</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="put all DAOs classes on single file. Create tables working.">
+      <created>1522698997769</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1522698997769</updated>
+    </task>
+    <task id="LOCAL-00003" summary="create author insert">
+      <created>1522705244706</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1522705244706</updated>
+    </task>
+    <task id="LOCAL-00004" summary="create delete table funcions">
+      <created>1522710631433</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1522710631433</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Change all models to a single file">
+      <created>1522887251240</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1522887251240</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update SQL DAOs almost finished">
+      <created>1522887292056</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1522887292056</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update gitignore">
+      <created>1522887372043</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1522887372043</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix some bugs">
+      <created>1523118822462</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1523118822462</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="275" y="27" width="1920" height="1055" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18249734" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Python Console" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="12" weight="0.32905984" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.19597316" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32905984" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19597316" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32905984" />
+      <window_info anchor="bottom" id="Python Console" order="9" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="bottom" id="Terminal" order="12" visible="true" weight="0.32905984" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -265,189 +448,481 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create table of user" />
     <MESSAGE value="Create DAOs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create DAOs" />
+    <MESSAGE value="put all DAOs classes on single file. Create tables working." />
+    <MESSAGE value="create author insert" />
+    <MESSAGE value="create delete table funcions" />
+    <MESSAGE value="Change all models to a single file" />
+    <MESSAGE value="Update SQL DAOs almost finished" />
+    <MESSAGE value="Update gitignore" />
+    <MESSAGE value="Fix some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix some bugs" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
+    <breakpoint-manager>
+      <option name="time" value="17" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Control/PostgresqlDAOs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#89#2221#0" />
+            <element signature="e#121#133#0" />
+            <element signature="e#171#290#0" />
+            <element signature="e#328#414#0" />
+            <element signature="e#454#619#0" />
+            <element signature="e#659#881#0" />
+            <element signature="e#938#1054#0" />
+            <element signature="e#1109#1223#0" />
+            <element signature="e#1282#1400#0" />
+            <element signature="e#1445#1618#0" />
+            <element signature="e#1689#2003#0" />
+            <element signature="e#1808#1998#0" />
+            <element signature="e#1970#2221#0" />
+            <element signature="e#2275#2506#0" />
+            <element signature="e#2534#4978#0" />
+            <element signature="e#2566#2578#0" />
+            <element signature="e#2616#2776#0" />
+            <element signature="e#2814#2863#0" />
+            <element signature="e#2906#3083#0" />
+            <element signature="e#3126#3367#0" />
+            <element signature="e#3424#3543#0" />
+            <element signature="e#3598#3715#0" />
+            <element signature="e#3774#3895#0" />
+            <element signature="e#3944#4129#0" />
+            <element signature="e#4161#4557#0" />
+            <element signature="e#4602#4978#0" />
+            <element signature="e#5047#7728#0" />
+            <element signature="e#5105#5117#0" />
+            <element signature="e#5155#5335#0" />
+            <element signature="e#5373#5425#0" />
+            <element signature="e#5463#5655#0" />
+            <element signature="e#5693#5919#0" />
+            <element signature="e#5976#6098#0" />
+            <element signature="e#6153#6273#0" />
+            <element signature="e#6332#6456#0" />
+            <element signature="e#6511#6631#0" />
+            <element signature="e#6675#6871#0" />
+            <element signature="e#6877#7290#0" />
+            <element signature="e#7335#7728#0" />
+            <element signature="e#2530#6647#0" />
+            <element signature="e#1673#1685#0" />
+            <element signature="e#1723#2012#0" />
+            <element signature="e#2050#2134#0" />
+            <element signature="e#2172#2356#0" />
+            <element signature="e#2394#2606#0" />
+            <element signature="e#2663#2777#0" />
+            <element signature="e#2834#2948#0" />
+            <element signature="e#3000#3124#0" />
+            <element signature="e#3181#3295#0" />
+            <element signature="e#3335#3450#0" />
+            <element signature="e#3493#3608#0" />
+            <element signature="e#3672#3957#0" />
+            <element signature="e#4015#4284#0" />
+            <element signature="e#4327#4899#0" />
+            <element signature="e#5821#6226#0" />
+            <element signature="e#6264#6640#0" />
+            <element signature="e#9365#12653#0" />
+            <element signature="e#4954#4966#0" />
+            <element signature="e#5004#5204#0" />
+            <element signature="e#5242#5286#0" />
+            <element signature="e#5324#5639#0" />
+            <element signature="e#5677#6171#0" />
+            <element signature="e#6218#6320#0" />
+            <element signature="e#10796#11388#0" />
+            <element signature="e#11260#11889#0" />
+            <element signature="e#11964#12653#0" />
+            <element signature="e#14454#17707#0" />
+            <element signature="e#6375#6387#0" />
+            <element signature="e#6425#6725#0" />
+            <element signature="e#6763#6815#0" />
+            <element signature="e#6854#7500#0" />
+            <element signature="e#7154#7438#0" />
+            <element signature="e#7539#8327#0" />
+            <element signature="e#8045#8266#0" />
+            <element signature="e#16471#17011#0" />
+            <element signature="e#17063#17707#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__main__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/Models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1717">
+          <caret line="101" lean-forward="true" selection-start-line="101" selection-end-line="101" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Control/UserDAO.py">
+    <entry file="file://$PROJECT_DIR$/Control/PostgresqlDAOs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="765">
+          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
           <folding>
-            <marker date="1521503873460" expanded="true" signature="119:241" ph="CREATE TABLE... user" />
+            <element signature="e#89#2221#0" />
+            <element signature="e#121#133#0" />
+            <element signature="e#171#290#0" />
+            <element signature="e#328#414#0" />
+            <element signature="e#454#619#0" />
+            <element signature="e#659#881#0" />
+            <element signature="e#938#1054#0" />
+            <element signature="e#1109#1223#0" />
+            <element signature="e#1282#1400#0" />
+            <element signature="e#1445#1618#0" />
+            <element signature="e#1689#2003#0" />
+            <element signature="e#1808#1998#0" />
+            <element signature="e#1970#2221#0" />
+            <element signature="e#2275#2506#0" />
+            <element signature="e#2534#4978#0" />
+            <element signature="e#2566#2578#0" />
+            <element signature="e#2616#2776#0" />
+            <element signature="e#2814#2863#0" />
+            <element signature="e#2906#3083#0" />
+            <element signature="e#3126#3367#0" />
+            <element signature="e#3424#3543#0" />
+            <element signature="e#3598#3715#0" />
+            <element signature="e#3774#3895#0" />
+            <element signature="e#3944#4129#0" />
+            <element signature="e#4161#4557#0" />
+            <element signature="e#4602#4978#0" />
+            <element signature="e#5047#7728#0" />
+            <element signature="e#5105#5117#0" />
+            <element signature="e#5155#5335#0" />
+            <element signature="e#5373#5425#0" />
+            <element signature="e#5463#5655#0" />
+            <element signature="e#5693#5919#0" />
+            <element signature="e#5976#6098#0" />
+            <element signature="e#6153#6273#0" />
+            <element signature="e#6332#6456#0" />
+            <element signature="e#6511#6631#0" />
+            <element signature="e#6675#6871#0" />
+            <element signature="e#6877#7290#0" />
+            <element signature="e#7335#7728#0" />
+            <element signature="e#2530#6647#0" />
+            <element signature="e#1673#1685#0" />
+            <element signature="e#1723#2012#0" />
+            <element signature="e#2050#2134#0" />
+            <element signature="e#2172#2356#0" />
+            <element signature="e#2394#2606#0" />
+            <element signature="e#2663#2777#0" />
+            <element signature="e#2834#2948#0" />
+            <element signature="e#3000#3124#0" />
+            <element signature="e#3181#3295#0" />
+            <element signature="e#3335#3450#0" />
+            <element signature="e#3493#3608#0" />
+            <element signature="e#3672#3957#0" />
+            <element signature="e#4015#4284#0" />
+            <element signature="e#4327#4899#0" />
+            <element signature="e#5821#6226#0" />
+            <element signature="e#6264#6640#0" />
+            <element signature="e#9365#12653#0" />
+            <element signature="e#4954#4966#0" />
+            <element signature="e#5004#5204#0" />
+            <element signature="e#5242#5286#0" />
+            <element signature="e#5324#5639#0" />
+            <element signature="e#5677#6171#0" />
+            <element signature="e#6218#6320#0" />
+            <element signature="e#10796#11388#0" />
+            <element signature="e#11260#11889#0" />
+            <element signature="e#11964#12653#0" />
+            <element signature="e#14454#17707#0" />
+            <element signature="e#6375#6387#0" />
+            <element signature="e#6425#6725#0" />
+            <element signature="e#6763#6815#0" />
+            <element signature="e#6854#7500#0" />
+            <element signature="e#7154#7438#0" />
+            <element signature="e#7539#8327#0" />
+            <element signature="e#8045#8266#0" />
+            <element signature="e#16471#17011#0" />
+            <element signature="e#17063#17707#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Control/PublisherDAO.py">
+    <entry file="file://$PROJECT_DIR$/Model/Copy.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Loan.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Author.py" />
+    <entry file="file://$PROJECT_DIR$/__main__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-          <folding>
-            <marker date="1521503873420" expanded="true" signature="124:229" ph="CREATE TABLE... publisher" />
-          </folding>
+        <state>
+          <caret column="26" lean-forward="true" selection-start-column="26" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Control/LoanDAO.py">
+    <entry file="file://$PROJECT_DIR$/Model/Book.py" />
+    <entry file="file://$PROJECT_DIR$/Control/PostgresqlDAOs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-          <folding>
-            <marker date="1521504665956" expanded="true" signature="119:250" ph="CREATE TABLE... loan" />
-            <marker date="1521504665956" expanded="true" signature="119:298" ph="CREATE TABLE... loan" />
-          </folding>
+        <state relative-caret-position="153">
+          <caret line="9" column="8" lean-forward="true" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Control/BookDAO.py">
+    <entry file="file://$PROJECT_DIR$/Model/Author.py" />
+    <entry file="file://$PROJECT_DIR$/__main__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="20" lean-forward="false" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
-          <folding />
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Control/CopyDAO.py">
+    <entry file="file://$PROJECT_DIR$/Model/Book.py" />
+    <entry file="file://$PROJECT_DIR$/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="20" lean-forward="false" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
-          <folding />
+        <state>
+          <caret column="28" selection-start-column="28" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Control/AuthorDAO.py">
+    <entry file="file://$PROJECT_DIR$/Control/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="14" lean-forward="false" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
-          <folding />
+        <state>
+          <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Author.py">
+    <entry file="file://$PROJECT_DIR$/Control/AuthorDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Author.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Book.py" />
+    <entry file="file://$PROJECT_DIR$/Control/PublisherDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/BookDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/LoanDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/CopyDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/UserDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/UserDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/PublisherDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/LoanDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/BookDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/CopyDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/AuthorDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Author.py" />
+    <entry file="file://$PROJECT_DIR$/Control/AuthorDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/BookDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/CopyDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/LoanDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/PublisherDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/UserDAO.py" />
+    <entry file="file://$PROJECT_DIR$/Control/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
-          <folding />
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Publisher.py">
+    <entry file="file://$PROJECT_DIR$/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state>
+          <caret column="28" selection-start-column="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Model/Author.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Book.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Copy.py" />
+    <entry file="file://$PROJECT_DIR$/Model/LibraryUser.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Loan.py" />
+    <entry file="file://$PROJECT_DIR$/Model/Publisher.py" />
+    <entry file="file://$PROJECT_DIR$/Model/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1717">
+          <caret line="101" selection-start-line="101" selection-end-line="101" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Copy.py">
+    <entry file="file://$PROJECT_DIR$/Model/Models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="297">
+          <caret line="49" column="83" selection-start-line="49" selection-start-column="83" selection-end-line="49" selection-end-column="83" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Loan.py">
+    <entry file="file://$PROJECT_DIR$/Control/PostgresqlDAOs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Author.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="24" lean-forward="true" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Model/Book.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="56" lean-forward="false" selection-start-line="2" selection-start-column="56" selection-end-line="2" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Control/AuthorDAO.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="117" lean-forward="false" selection-start-line="6" selection-start-column="117" selection-end-line="6" selection-end-column="117" />
+        <state relative-caret-position="85">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
           <folding>
-            <marker date="1521504581372" expanded="true" signature="121:214" ph="CREATE TABLE... author" />
+            <element signature="e#89#2221#0" />
+            <element signature="e#121#133#0" />
+            <element signature="e#171#290#0" />
+            <element signature="e#328#414#0" />
+            <element signature="e#454#619#0" />
+            <element signature="e#659#881#0" />
+            <element signature="e#938#1054#0" />
+            <element signature="e#1109#1223#0" />
+            <element signature="e#1282#1400#0" />
+            <element signature="e#1445#1618#0" />
+            <element signature="e#1689#2003#0" />
+            <element signature="e#1808#1998#0" />
+            <element signature="e#1970#2221#0" />
+            <element signature="e#2275#2506#0" />
+            <element signature="e#2534#4978#0" />
+            <element signature="e#2566#2578#0" />
+            <element signature="e#2616#2776#0" />
+            <element signature="e#2814#2863#0" />
+            <element signature="e#2906#3083#0" />
+            <element signature="e#3126#3367#0" />
+            <element signature="e#3424#3543#0" />
+            <element signature="e#3598#3715#0" />
+            <element signature="e#3774#3895#0" />
+            <element signature="e#3944#4129#0" />
+            <element signature="e#4161#4557#0" />
+            <element signature="e#4602#4978#0" />
+            <element signature="e#5047#7728#0" />
+            <element signature="e#5105#5117#0" />
+            <element signature="e#5155#5335#0" />
+            <element signature="e#5373#5425#0" />
+            <element signature="e#5463#5655#0" />
+            <element signature="e#5693#5919#0" />
+            <element signature="e#5976#6098#0" />
+            <element signature="e#6153#6273#0" />
+            <element signature="e#6332#6456#0" />
+            <element signature="e#6511#6631#0" />
+            <element signature="e#6675#6871#0" />
+            <element signature="e#6877#7290#0" />
+            <element signature="e#7335#7728#0" />
+            <element signature="e#2530#6647#0" />
+            <element signature="e#1673#1685#0" />
+            <element signature="e#1723#2012#0" />
+            <element signature="e#2050#2134#0" />
+            <element signature="e#2172#2356#0" />
+            <element signature="e#2394#2606#0" />
+            <element signature="e#2663#2777#0" />
+            <element signature="e#2834#2948#0" />
+            <element signature="e#3000#3124#0" />
+            <element signature="e#3181#3295#0" />
+            <element signature="e#3335#3450#0" />
+            <element signature="e#3493#3608#0" />
+            <element signature="e#3672#3957#0" />
+            <element signature="e#4015#4284#0" />
+            <element signature="e#4327#4899#0" />
+            <element signature="e#5821#6226#0" />
+            <element signature="e#6264#6640#0" />
+            <element signature="e#9365#12653#0" />
+            <element signature="e#4954#4966#0" />
+            <element signature="e#5004#5204#0" />
+            <element signature="e#5242#5286#0" />
+            <element signature="e#5324#5639#0" />
+            <element signature="e#5677#6171#0" />
+            <element signature="e#6218#6320#0" />
+            <element signature="e#10796#11388#0" />
+            <element signature="e#11260#11889#0" />
+            <element signature="e#11964#12653#0" />
+            <element signature="e#14454#17707#0" />
+            <element signature="e#6375#6387#0" />
+            <element signature="e#6425#6725#0" />
+            <element signature="e#6763#6815#0" />
+            <element signature="e#6854#7500#0" />
+            <element signature="e#7154#7438#0" />
+            <element signature="e#7539#8327#0" />
+            <element signature="e#8045#8266#0" />
+            <element signature="e#16471#17011#0" />
+            <element signature="e#17063#17707#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Control/BookDAO.py">
+    <entry file="file://$PROJECT_DIR$/__main__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="116" lean-forward="false" selection-start-line="6" selection-start-column="116" selection-end-line="6" selection-end-column="116" />
-          <folding>
-            <marker date="1521504643492" expanded="true" signature="119:288" ph="CREATE TABLE... book" />
-          </folding>
+        <state>
+          <caret column="21" selection-start-column="21" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Control/CopyDAO.py">
+    <entry file="file://$PROJECT_DIR$/Control/MongoDAOs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="138" lean-forward="true" selection-start-line="6" selection-start-column="138" selection-end-line="6" selection-end-column="138" />
+        <state relative-caret-position="388">
+          <caret line="150" column="41" selection-start-line="150" selection-start-column="41" selection-end-line="150" selection-end-column="41" />
           <folding>
-            <marker date="1521504324880" expanded="true" signature="119:230" ph="CREATE TABLE... copy" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Control/LoanDAO.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="156" lean-forward="true" selection-start-line="6" selection-start-column="156" selection-end-line="6" selection-end-column="156" />
-          <folding>
-            <marker date="1521504665956" expanded="true" signature="119:250" ph="CREATE TABLE... loan" />
-            <marker date="1521504665956" expanded="true" signature="119:298" ph="CREATE TABLE... loan" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Control/PublisherDAO.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <marker date="1521503873420" expanded="true" signature="124:229" ph="CREATE TABLE... publisher" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Control/UserDAO.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <marker date="1521503873460" expanded="true" signature="119:241" ph="CREATE TABLE... user" />
+            <element signature="e#123#161#0" />
+            <element signature="e#212#231#0" />
+            <element signature="e#276#436#0" />
+            <element signature="e#489#690#0" />
+            <element signature="e#744#862#0" />
+            <element signature="e#1147#1261#0" />
+            <element signature="e#1140#1282#0" />
+            <element signature="e#1483#1656#0" />
+            <element signature="e#2132#2510#0" />
+            <element signature="e#1880#1934#0" />
+            <element signature="e#1978#2002#0" />
+            <element signature="e#2048#2236#0" />
+            <element signature="e#2558#2706#0" />
+            <element signature="e#2767#2913#0" />
+            <element signature="e#2978#3128#0" />
+            <element signature="e#3180#3443#0" />
+            <element signature="e#3396#3596#0" />
+            <element signature="e#5079#5091#0" />
+            <element signature="e#3753#3777#0" />
+            <element signature="e#3820#4001#0" />
+            <element signature="e#4308#4446#0" />
+            <element signature="e#4501#4637#0" />
+            <element signature="e#4696#4836#0" />
+            <element signature="e#4885#5135#0" />
+            <element signature="e#5180#5383#0" />
+            <element signature="e#7808#12110#0" />
+            <element signature="e#7840#7852#0" />
+            <element signature="e#7890#8179#0" />
+            <element signature="e#8217#8301#0" />
+            <element signature="e#8339#8523#0" />
+            <element signature="e#8561#8773#0" />
+            <element signature="e#8830#8944#0" />
+            <element signature="e#9001#9115#0" />
+            <element signature="e#9167#9291#0" />
+            <element signature="e#9348#9462#0" />
+            <element signature="e#9502#9617#0" />
+            <element signature="e#9660#9775#0" />
+            <element signature="e#9839#10124#0" />
+            <element signature="e#10182#10451#0" />
+            <element signature="e#10494#11066#0" />
+            <element signature="e#11099#11691#0" />
+            <element signature="e#11216#11605#0" />
+            <element signature="e#11736#12110#0" />
+            <element signature="e#11857#12022#0" />
+            <element signature="e#12133#15359#0" />
+            <element signature="e#12165#12177#0" />
+            <element signature="e#12215#12415#0" />
+            <element signature="e#12453#12497#0" />
+            <element signature="e#12535#12850#0" />
+            <element signature="e#12888#13382#0" />
+            <element signature="e#13429#13531#0" />
+            <element signature="e#13564#13957#0" />
+            <element signature="e#13681#13871#0" />
+            <element signature="e#14016#14645#0" />
+            <element signature="e#14398#14559#0" />
+            <element signature="e#14707#15359#0" />
+            <element signature="e#15105#15266#0" />
+            <element signature="e#15382#18514#0" />
+            <element signature="e#15414#15426#0" />
+            <element signature="e#15464#15764#0" />
+            <element signature="e#15802#15854#0" />
+            <element signature="e#15893#16539#0" />
+            <element signature="e#16193#16477#0" />
+            <element signature="e#16578#17366#0" />
+            <element signature="e#17084#17305#0" />
+            <element signature="e#17399#17939#0" />
+            <element signature="e#17516#17853#0" />
+            <element signature="e#17991#18514#0" />
+            <element signature="e#18118#18426#0" />
           </folding>
         </state>
       </provider>

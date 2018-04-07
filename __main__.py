@@ -1,18 +1,11 @@
-from Control.DAOs import *
+from Control import *
 from Model.Models import *
-import psycopg2
+import psycopg2, pymongo
 
-conn = psycopg2.connect("dbname='PBD_library' user='postgres' password='postgres'")
+conn = psycopg2.connect("postgres://lirtwxkb:40HJuIQLBS9pWHGMGiSZbvSFfDpkFOBt@baasu.db.elephantsql.com:5432/lirtwxkb")
 cursor = conn.cursor()
 
-AuthorDAO(cursor).create_table()
-PublisherDAO(cursor).create_table()
-LibraryUserDAO(cursor).create_table()
-BookDAO(cursor).create_table()
-CopyDAO(cursor).create_table()
-LoanDAO(cursor).create_table()
 
-conn.commit()
 
 cursor.close()
 conn.close()

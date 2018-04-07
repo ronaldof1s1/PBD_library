@@ -47,7 +47,7 @@ class LibraryUser:
 
 class Loan:
 
-    def __init__(self, copy, user, loan_date = date.now(), return_date = date.MAXYEAR):
+    def __init__(self, copy, user, loan_date = date.today(), return_date = date.max):
         self.loan_date = loan_date
         self.return_date = return_date
         self.copy = copy

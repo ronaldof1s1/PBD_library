@@ -11,7 +11,7 @@ class AuthorDAO:
         self.db.execute("CREATE TABLE author (id SERIAL PRIMARY KEY, name TEXT NOT NULL UNIQUE, address TEXT, telephone TEXT)")
 
     def delete_table(self):
-        self.db.execute("DROP TABLE author")
+        self.db.execute("DROP TABLE IF EXISTS IF EXISTS author")
         LoanDAO(self.db).delete_table()
 
     def insert(self, author):
@@ -54,7 +54,7 @@ class BookDAO:
                         "author_id INTEGER REFERENCES author (id))")
 
     def delete_table(self):
-        self.db.execute("DROP TABLE book")
+        self.db.execute("DROP TABLE IF EXISTS book")
         CopyDAO(self.db).delete_table()
 
     def insert(self, book):
@@ -133,7 +133,7 @@ class CopyDAO:
         LoanDAO(self.db).delete_table()
 
     def delete_table(self):
-        self.db.execute("DROP TABLE copy")
+        self.db.execute("DROP TABLE IF EXISTS copy")
 
     def insert(self, copy):
         sql_string = "SELECT id FROM book WHERE name = %s"
@@ -175,7 +175,7 @@ class LoanDAO:
                         " user_id INTEGER NOT NULL REFERENCES library_user (id) ON UPDATE CASCADE )")
 
     def delete_table(self):
-        self.db.execute("DROP TABLE loan")
+        self.db.execute("DROP TABLE IF EXISTS IF EXISTS loan CASCADE")
 
     def insert(self, loan):
 
@@ -231,7 +231,7 @@ class PublisherDAO:
                         "address TEXT, telephone TEXT)")
 
     def delete_table(self):
-        self.db.execute("DROP TABLE publisher")
+        self.db.execute("DROP TABLE IF EXISTS publisher")
 
     def insert(self, publisher):
         sql_string = "INSERT INTO publisher (name, address, telephone) VALUES (%s, %s, %s)"
@@ -272,7 +272,7 @@ class LibraryUserDAO:
                         " telephone TEXT, student BOOLEAN NOT NULL)")
 
     def delete_table(self):
-        self.db.execute("DROP TABLE library_user")
+        self.db.execute("DROP TABLE IF EXISTS library_user")
 
     def insert(self, user):
         sql_string = "INSERT INTO library_user (name, address, telephone, student) VALUES (%s, %s, %s, %s)"

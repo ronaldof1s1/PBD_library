@@ -79,12 +79,23 @@ class Book:
 
 class Copy:
 
-    def __init__(self, lent, book):
+    def __init__(self, id, lent, book):
+
+        try:
+            self.validate_id(id)
+        except InvalidFieldException:
+            raise InvalidRegisterException("Invalid ")
+
+        self.id = id
         self.lent = lent
         self.book = book
 
     def __str__(self):
-        return self.book.name + " exemplar"
+        return self.id + ": " + self.book.name
+
+    def validate_id(self, id):
+        if not isinstance(id, int) or id < 1:
+            raise InvalidFieldException("invalid ID")
 
 
 class LibraryUser:

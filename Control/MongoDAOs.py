@@ -82,6 +82,20 @@ class AuthorDAO:
         author = Author(name, address, telephone)
         return author
 
+    def get_all(self):
+        rows = self.collection.find({})
+        authors = []
+
+        for row in rows:
+            name = row["name"]
+            address = row["address"]
+            telephone = row["telephone"]
+
+            author = Author(name, address, telephone)
+            authors.append(author)
+
+        return authors
+
 
 class PublisherDAO:
 
@@ -160,6 +174,20 @@ class PublisherDAO:
 
         publisher = Publisher(name, address, telephone)
         return publisher
+
+    def get_all(self):
+        rows = self.collection.find({})
+        publishers = []
+
+        for row in rows:
+            name = row["name"]
+            address = row["address"]
+            telephone = row["telephone"]
+
+            publisher = Publisher(name, address, telephone)
+            publishers.append(publisher)
+
+        return publishers
 
 
 class LibraryUserDAO:
@@ -251,6 +279,21 @@ class LibraryUserDAO:
 
         user = LibraryUser(name, address, telephone, student)
         return user
+
+    def get_all(self):
+        rows = self.collection.find({})
+        users = []
+
+        for row in rows:
+            name = row["name"]
+            address = row["address"]
+            telephone = row["telephone"]
+            student = row["student"]
+
+            user = LibraryUser(name, address, telephone, student)
+            users.append(user)
+
+        return users
 
 
 class BookDAO:
@@ -362,6 +405,25 @@ class BookDAO:
         book = Book(name, keywords, quantity, publisher, author)
         return book
 
+    def get_all(self):
+        rows = self.collection.find({})
+        books = []
+
+        for row in rows:
+            name = row["name"]
+            keywords = row["keyword"]
+            quantity = row["quantity"]
+            publisher_name = row["publisher"]
+            author_name = row["author"]
+
+            publisher = PublisherDAO(self.db).get_from_name(publisher_name)
+            author = AuthorDAO(self.db).get_from_name(author_name)
+
+            book = Book(name, keywords, quantity, publisher, author)
+            books.append(book)
+
+        return books
+
 
 class CopyDAO:
 
@@ -374,6 +436,7 @@ class CopyDAO:
 
     def insert(self, copy):
         entry = {
+            "id": copy.id,
             "lent": copy.lent,
             "book": copy.book.name
         }
@@ -393,17 +456,28 @@ class CopyDAO:
         self.collection.remove(cp)
 
     def update_lent(self, id, lent):
-        filter = {"_id": id}
+        filter = {"id": id}
         update = {"lent": lent}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
+
+    def get(self, id):
+        query = self.collection.find_one({"book": book_name})
+
+        book_name = query["book"]
+        lent = query["lent"]
+        book = BookDAO(self.db).get_from_name(book_name)
+
+        copy = Copy(id, lent, book)
+        return copy
 
     def get_any_from_book_name(self, book_name):
         query = self.collection.find_one({"book": book_name})
 
+        id = query["id"]
         lent = query["lent"]
         book = BookDAO(self.db).get_from_name(book_name)
 
-        copy = Copy(lent, book)
+        copy = Copy(id, lent, book)
         return copy
 
     def get_unlent_from_book_name(self, book_name):
@@ -412,10 +486,27 @@ class CopyDAO:
         if query is None:
             raise Exception("no unlent copy from %s" % book_name)
 
+        id = query["id"]
         book = BookDAO(self.db).get_from_name(book_name)
 
-        copy = Copy(False, book)
+        copy = Copy(id, False, book)
         return copy
+
+    def get_all(self):
+        rows = self.collection.find({})
+        copies = []
+
+        for row in rows:
+            id = row["id"]
+            lent = row["lent"]
+            book_name = row["book"]
+
+            book = BookDAO(self.db).get_from_name(book_name)
+
+            copy = Copy(id, lent, book)
+            copies.append(copy)
+
+        return copies
 
 
 class LoanDAO:
@@ -428,25 +519,31 @@ class LoanDAO:
         self.db.drop_collection(self.collection)
 
     def insert(self, loan):
+
         entry = {
             "loan_date": loan.loan_date,
             "return_date": loan.return_date,
-            "copy": loan.copy.book.name,
+            "copy": loan.copy.id,
             "user": loan.user.name
         }
+
+        copydao = CopyDAO(self.db)
+        copydao.update_lent(id, True)
 
         self.collection.insert(entry)
 
     def remove(self, loan):
-        book_name = loan.copy.book.name
+        copy_id = loan.copy.id
         user_name = loan.user.name
-        query = {"$and" : {"copy":book_name, "user":user_name}}
+        query = {"$and" : {"copy":copy_id, "user":user_name}}
         ln = self.collection.find_one(query)
 
         if ln is None:
-            raise Exception("No loan from %s with %s" % (user_name, book_name))
+            raise Exception("No loan from %s with %s" % (user_name, copy_id))
 
         self.collection.remove(ln)
+
+        CopyDAO(self.db).update_lent(copy_id, False)
 
     def update_loan_date(self, id, loan_date):
         try:
@@ -468,3 +565,51 @@ class LoanDAO:
         update = {"return_date": return_date}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
+    def get(self, id):
+        row = self.collection.find_one({"_id" : id})
+
+        loan_date = row["loan_date"]
+        return_date = row["return_date"]
+        copy_id = row["copy"]
+        user_name = row["user"]
+
+        copy = CopyDAO(self.db).get(copy_id)
+        user = LibraryUserDAO(self.db).get_from_name(user_name)
+
+        loan = Loan(copy, user,loan_date, return_date)
+
+        return loan
+
+    def get_all_from_user(self, user_name):
+        rows = self.collection.find({"user":user_name})
+        loans = []
+
+        for row in rows:
+            loan_date = row["loan_date"]
+            return_date = row["return_date"]
+            copy_id = row["copy"]
+
+            copy = CopyDAO(self.db).get(copy_id)
+            user = LibraryUserDAO(self.db).get_from_name(user_name)
+
+            loan = Loan(copy, user, loan_date, return_date)
+            loans.append(loan)
+
+        return loans
+    def get_all(self):
+        rows = self.collection.find({})
+        loans = []
+
+        for row in rows:
+            loan_date = row["loan_date"]
+            return_date = row["return_date"]
+            copy_id = row["copy"]
+            user_name = row["user"]
+            
+            copy = CopyDAO(self.db).get(copy_id)
+            user = LibraryUserDAO(self.db).get_from_name(user_name)
+
+            loan = Loan(copy, user, loan_date, return_date)
+            loans.append(loan)
+
+        return loans

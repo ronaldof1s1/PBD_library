@@ -89,6 +89,24 @@ class AuthorDAO:
         except ProgrammingError:
             raise Exception("No author with this name")
 
+    def get_all(self):
+        sql_string = "SELECT * FROM author"
+        self.db.execute(sql_string)
+
+        rows = self.db.fetchall()
+
+        authors = []
+
+        for row in rows:
+            name = row[1]
+            address = row[2]
+            telephone = row[3]
+
+            author = Author(name, address, telephone)
+            authors.append(author)
+
+        return authors
+
 
 class PublisherDAO:
 
@@ -175,6 +193,24 @@ class PublisherDAO:
 
         except ProgrammingError:
             raise Exception("No publisher with this name")
+
+    def get_all(self):
+        sql_string = "SELECT * FROM publisher"
+        self.db.execute(sql_string)
+
+        rows = self.db.fetchall()
+
+        publishers = []
+
+        for row in rows:
+            name = row[1]
+            address = row[2]
+            telephone = row[3]
+
+            pub = Publisher(name, address, telephone)
+            publishers.append(pub)
+
+        return publishers
 
 
 class LibraryUserDAO:
@@ -273,6 +309,25 @@ class LibraryUserDAO:
 
         except ProgrammingError:
             raise Exception("No user with this name")
+
+    def get_all(self):
+        sql_string = "SELECT * FROM library_user"
+        self.db.execute(sql_string)
+
+        rows = self.db.fetchall()
+
+        users = []
+
+        for row in rows:
+            name = row[1]
+            address = row[2]
+            telephone = row[3]
+            student = row[4]
+
+            student = LibraryUser(name, address, telephone, student)
+            users.append(student)
+
+        return users
 
 
 class BookDAO:
@@ -404,6 +459,29 @@ class BookDAO:
         except ProgrammingError:
             raise Exception("No book with this name")
 
+    def get_all(self):
+        sql_string = "SELECT * FROM book"
+        self.db.execute(sql_string)
+
+        rows = self.db.fetchall()
+
+        books = []
+
+        for row in rows:
+            name = row[1]
+            keywords = row[2]
+            quantity = row[3]
+            publisher_id = row[4]
+            author_id = row[5]
+
+            author = AuthorDAO(self.db).get(author_id)
+            publisher = PublisherDAO(self.db).get(publisher_id)
+
+            book = Book(name, keywords, quantity, publisher, author)
+            books.append(book)
+
+        return books
+
 
 class CopyDAO:
 
@@ -411,7 +489,7 @@ class CopyDAO:
         self.db = db
 
     def create_table(self):
-        self.db.execute("CREATE TABLE copy (id SERIAL PRIMARY KEY,  lent BOOLEAN," +
+        self.db.execute("CREATE TABLE copy (copy_id SERIAL PRIMARY KEY,  id INTEGER NOT NULL UNIQUE, lent BOOLEAN," +
                         " book_id INTEGER REFERENCES book (id) ON UPDATE CASCADE)")
         LoanDAO(self.db).delete_table()
 
@@ -423,17 +501,15 @@ class CopyDAO:
         self.db.execute(sql_string, (copy.book.name,))
         book_id = self.db.fetchone()[0]
 
-        sql_string = "INSERT INTO copy (lent, book) VALUES (%s, %s)"
-        self.db.execute(sql_string, (copy.lent, book_id))
+        sql_string = "INSERT INTO copy (id, lent, book) VALUES (%s, %s, %s)"
+        self.db.execute(sql_string, (copy.id, copy.lent, book_id))
 
         BookDAO.add_copy(copy.book.name)
 
     def remove(self, copy):
-        sql_string = "SELECT id FROM book WHERE name = %s"
-        self.db.execute(sql_string, (copy.book.name,))
-        book_id = self.db.fetchone()[0]
-        sql_string = "DELETE FROM copy WHERE book_id = %s and lent = FALSE"
-        self.db.execute(sql_string, (book_id,))
+
+        sql_string = "DELETE FROM copy WHERE id = %s and lent = %s"
+        self.db.execute(sql_string, (copy.id, False))
         status_str = self.db.statusmessage
         status_str = status_str.split()
 
@@ -509,6 +585,26 @@ class CopyDAO:
 
         except ProgrammingError:
             raise Exception("No unlent copy of this book")
+
+    def get_all(self):
+        sql_string = "SELECT * FROM copy"
+        self.db.execute(sql_string)
+
+        rows = self.db.fetchall()
+
+        copies = []
+
+        for row in rows:
+            id = row[1]
+            lent = row[2]
+            book_id = row[3]
+
+            book = BookDAO(self.db).get(book_id)
+
+            copy = Copy(id, lent, book)
+            copies.append(copy)
+
+        return copies
 
 
 class LoanDAO:
@@ -588,7 +684,11 @@ class LoanDAO:
         except ProgrammingError:
             raise Exception("No Loan with this ID")
 
-    def get_all_from_user(self, user_id):
+    def get_all_from_user(self, user_name):
+        sql_string = "SELECT id from library_user WHERE name = %s"
+        self.db.execute(sql_string, (user_name,))
+        user_id = self.db.fetchone()[0]
+
         sql_string = "SELECT * FROM loan WHERE user_id = %s"
         self.db.execute(sql_string, (user_id,))
 
@@ -606,4 +706,27 @@ class LoanDAO:
 
         except ProgrammingError:
             raise Exception("No loan from this user")
+
+    def get_all(self):
+        sql_string = "SELECT * FROM loan"
+        self.db.execute(sql_string)
+
+        rows = self.db.fetchall()
+
+        loans = []
+
+        for row in rows:
+            loan_date = row[1]
+            return_date = row[2]
+            copy_id = row[3]
+            user_id = row[4]
+
+            copy = CopyDAO(self.db).get(copy_id)
+            user = LibraryUserDAO(self.db).get(user_id)
+
+            loan = Loan(copy, user, loan_date, return_date)
+            loans.append(loan)
+
+        return loans
+
 

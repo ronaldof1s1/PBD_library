@@ -468,4 +468,3 @@ class LoanDAO:
         update = {"return_date": return_date}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
-    

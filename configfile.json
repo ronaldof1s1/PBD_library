@@ -1,0 +1,5 @@
+{
+  "database" : "Postgresql",
+  "uri" : "postgres://lirtwxkb:40HJuIQLBS9pWHGMGiSZbvSFfDpkFOBt@baasu.db.elephantsql.com:5432/lirtwxkb",
+  "other_uri" : "mongodb+srv://ronaldofs:<19081996#Fs>@pbd-cvrh6.mongodb.net/test"
+}

@@ -1,11 +1,25 @@
-from Control import *
 from Model.Models import *
-import psycopg2, pymongo
+from ConfigReader import ConfigReader
 
-conn = psycopg2.connect("postgres://lirtwxkb:40HJuIQLBS9pWHGMGiSZbvSFfDpkFOBt@baasu.db.elephantsql.com:5432/lirtwxkb")
-cursor = conn.cursor()
+cr = ConfigReader("configfile.json")
+
+db = cr.get_DB()
+uri = cr.get_uri()
+
+if db == "Postgresql" :
+    import psycopg2
+    from Control.PostgresqlDAOs import *
+
+    conn = psycopg2.connect(uri)
+    cursor = conn.cursor()
+    cursor.close()
+
+elif db == "MongoDB":
+    import pymongo
+    from Control.MongoDAOs import *
+
+    conn = pymongo.MongoClient(uri)
 
 
 
-cursor.close()
 conn.close()

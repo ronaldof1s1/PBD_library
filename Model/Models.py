@@ -162,6 +162,7 @@ class Loan:
         if return_date < self.loan_date or return_date < date.today() or not isinstance(return_date, date):
             raise InvalidFieldException("invalid return date")
 
+
 class Publisher:
 
     def __init__(self, name, address, telephone):

@@ -28,14 +28,29 @@ class AuthorDAO:
         self.db.execute(sql_string, name)
 
     def update_name(self, old_name, new_name):
+        try:
+            Author.validate_name(new_name)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         sql_string = "UPDATE author SET name = %s WHERE name = %s"
         self.db.execute(sql_string, (new_name, old_name))
 
     def update_address(self, name, address):
+        try:
+            Author.validate_address(address)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid address")
+
         sql_string = "UPDATE author SET address = %s WHERE name = %s"
         self.db.execute(sql_string, (address, name))
 
     def update_telephone(self, name, telephone):
+        try:
+            Author.validate_telephone(telephone)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid telephone")
+
         sql_string = "UPDATE author SET telephone = %s WHERE name = %s"
         self.db.execute(sql_string, (telephone, name))
 
@@ -100,14 +115,29 @@ class PublisherDAO:
         self.db.execute(sql_string, name)
 
     def update_name(self, old_name, new_name):
+        try:
+            Publisher.validate_name(new_name)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         sql_string = "UPDATE publisher SET name = %s WHERE name = %s"
         self.db.execute(sql_string, (new_name, old_name))
 
     def update_address(self, name, address):
+        try:
+            Publisher.validate_address(address)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid address")
+
         sql_string = "UPDATE publisher SET address = %s WHERE name = %s"
         self.db.execute(sql_string, (address, name))
 
     def update_telephone(self, name, telephone):
+        try:
+            Publisher.validate_telephone(telephone)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid telephone")
+
         sql_string = "UPDATE publisher SET telephone = %s WHERE name = %s"
         self.db.execute(sql_string, (telephone, name))
 
@@ -172,18 +202,38 @@ class LibraryUserDAO:
         self.db.execute(sql_string, name)
 
     def update_name(self, old_name, new_name):
+        try:
+            LibraryUser.validate_name(new_name)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         sql_string = "UPDATE library_user SET name = %s WHERE name = %s"
         self.db.execute(sql_string, (new_name, old_name))
 
     def update_address(self, name, address):
+        try:
+            LibraryUser.validate_address(address)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid address")
+
         sql_string = "UPDATE library_user SET address = %s WHERE name = %s"
         self.db.execute(sql_string, (address, name))
 
     def update_telephone(self, name, telephone):
+        try:
+            LibraryUser.validate_telephone(telephone)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid Telephone")
+
         sql_string = "UPDATE library_user SET telephone = %s WHERE name = %s"
         self.db.execute(sql_string, (telephone, name))
 
     def update_student(self, name, student):
+        try:
+            LibraryUser.validate_student(student)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid student")
+
         sql_string = "UPDATE library_user SET student = %s WHERE name = %s"
         self.db.execute(sql_string, (student, name))
 
@@ -253,10 +303,20 @@ class BookDAO:
         self.db.execute(sql_string, name)
 
     def update_name(self, old_name, new_name):
+        try:
+            Book.validate_name(new_name)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         sql_string = "UPDATE book SET name = %s WHERE name = %s"
         self.db.execute(sql_string, (new_name, old_name))
 
     def update_keywords(self, name, keywords):
+        try:
+            Book.validate_keywords(keywords)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         sql_string = "UPDATE book SET keywords = %s WHERE name = %s"
         self.db.execute(sql_string, (keywords, name))
 
@@ -265,6 +325,11 @@ class BookDAO:
         self.db.execute(sql_string, (keyword, name))
 
     def update_quantity(self, name, quantity):
+        try:
+            Book.validate_quantity(quantity)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid quantity")
+
         sql_string = "UPDATE book set quantity = %s WHERE name = %s"
         self.db.execute(sql_string, (quantity, name))
 

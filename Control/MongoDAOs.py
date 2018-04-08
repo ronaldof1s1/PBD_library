@@ -32,16 +32,34 @@ class AuthorDAO:
         self.collection.remove(entry)
 
     def update_name(self, old_name, new_name):
+
+        try:
+            Author.validate_name(new_name)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         filter = {"name" : old_name}
         update = {"name" : new_name}
         self.collection.update_one(filter, {"$set": update}, upsert = False)
 
     def update_address(self, name, address):
+
+        try:
+            Author.validate_address(address)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         filter = {"name" : name}
         update = {"address" : address}
         self.collection.update_one(filter, {"$set": update}, upsert = False)
 
     def update_telephone(self, name, telephone):
+
+        try:
+            Author.validate_telephone(telephone)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid telephone")
+
         filter = {"name" : name}
         update = {"telephone" : telephone}
         self.collection.update_one(filter, {"$set": update}, upsert = False)
@@ -93,16 +111,34 @@ class PublisherDAO:
         self.collection.remove(entry)
 
     def update_name(self, old_name, new_name):
+
+        try:
+            Publisher.validate_name(new_name)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         filter = {"name": old_name}
         update = {"name": new_name}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def update_address(self, name, address):
+
+        try:
+            Publisher.validate_address(address)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         filter = {"name": name}
         update = {"address": address}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def update_telephone(self, name, telephone):
+
+        try:
+            Publisher.validate_telephone(telephone)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid telephone")
+
         filter = {"name": name}
         update = {"telephone": telephone}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
@@ -155,21 +191,43 @@ class LibraryUserDAO:
         self.collection.remove(entry)
 
     def update_name(self, old_name, new_name):
+
+        try:
+            LibraryUser.validate_name(new_name)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         filter = {"name": old_name}
         update = {"name": new_name}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def update_address(self, name, address):
+
+        try:
+            LibraryUser.validate_address(address)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid address")
+
         filter = {"name": name}
         update = {"address": address}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def update_telephone(self, name, telephone):
+        try:
+            LibraryUser.validate_telephone(telephone)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         filter = {"name": name}
         update = {"telephone": telephone}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def update_student(self, name, student):
+        try:
+            LibraryUser.validate_student(student)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
         filter = {"name": name}
         update = {"student": student}
         self.collection.update_one(filter, {"$set": update}, upsert=False)
@@ -199,309 +257,215 @@ class BookDAO:
 
     def __init__(self, db):
         self.db = db
+        self.collection = db["Book"]
 
     def delete_table(self):
-        self.db.execute("DROP TABLE IF EXISTS book")
-        CopyDAO(self.db).delete_table()
+        self.db.drop_collection(self.collection)
 
     def insert(self, book):
-        sql_string = "INSERT INTO book (name, keywords, publisher, author) VALUES (%s, %s, %s, %s)"
-        self.db.execute(sql_string, (book.name, book.keywords, book.publisher, book.author))
+        entry = {
+            "name": book.name,
+            "keywords": book.keywords,
+            "quantity": book.quantity,
+            "author": book.author.name,
+            "publisher": book.publisher.name
+        }
+
+        self.collection.insert(entry)
 
     def remove(self, book):
         if isinstance(book, str):
             name = book
         elif isinstance(book, Book):
             name = book.name
+        entry = {"name": name}
 
-        sql_string = "DELETE FROM book WHERE name=%s"
-        self.db.execute(sql_string, name)
+        self.collection.remove(entry)
 
     def update_name(self, old_name, new_name):
-        sql_string = "UPDATE book SET name = %s WHERE name = %s"
-        self.db.execute(sql_string, (new_name, old_name))
+        try:
+            Book.validate_name(new_name)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
+        filter = {"name": old_name}
+        update = {"name": new_name}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def update_keywords(self, name, keywords):
-        sql_string = "UPDATE book SET keywords = %s WHERE name = %s"
-        self.db.execute(sql_string, (keywords, name))
+        try:
+            Book.validate_keywords(keywords)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
+        filter = {"name": name}
+        update = {"keywords": keywords}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def add_keyword(self, name, keyword):
-        sql_string = "UPDATE book set keywords = keyword || %s WHERE name = %s"
-        self.db.execute(sql_string, (keyword, name))
+        filter = {"name": name}
+        update = {"keyword": keyword}
+        self.collection.update_one(filter, {"$push": update}, upsert=False)
 
     def update_quantity(self, name, quantity):
-        sql_string = "UPDATE book set quantity = %s WHERE name = %s"
-        self.db.execute(sql_string, (quantity, name))
+        try:
+            Book.validate_quantity(quantity)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid name")
+
+        filter = {"name": name}
+        update = {"quantity": quantity}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def add_copy(self, name):
-        sql_string = "UPDATE book set quantity = quantity + 1 WHERE name = %s"
-        self.db.execute(sql_string, (name,))
+        filter = {"name": name}
+        update = {"quantity": 1}
+        self.collection.update_one(filter, {"$inc": update}, upsert=False)
 
     def delete_copy(self, name):
-        sql_string = "UPDATE book set quantity = quantity - 1 WHERE name = %s"
-        self.db.execute(sql_string, (name,))
+        filter = {"name": name}
+        update = {"quantity": -1}
+        self.collection.update_one(filter, {"$inc": update}, upsert=False)
 
     def update_publisher(self, name, publisher_name):
-        sql_string = "SELECT id FROM publisher WHERE name = %s"
-        self.db.execute(sql_string, (publisher_name,))
-        publisher_id = self.db.fetchone()[0]
 
-        sql_string = "UPDATE book SET publisher = %s WHERE name = %s"
-        self.db.execute(sql_string, (publisher_id, name))
+        filter = {"name": name}
+        update = {"publisher": publisher_name}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def update_author(self, name, author_name):
-        sql_string = "SELECT id FROM author WHERE name = %s"
-        self.db.execute(sql_string, (author_name,))
-        author_id = self.db.fetchone()[0]
-        sql_string = "UPDATE book SET author = %s WHERE name = %s"
-        self.db.execute(sql_string, (author_id, name))
+        filter = {"name": name}
+        update = {"author": author_name}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def update(self, name, book):
-        sql_string = "SELECT id FROM author WHERE name = %s"
-        self.db.execute(sql_string, (book.author.name,))
-        new_author_id = self.db.fetchone()[0]
-
-        sql_string = "SELECT id FROM publisher WHERE name = %s"
-        self.db.execute(sql_string, (book.publisher.name,))
-        new_publisher_id = self.db.fetchone()[0]
-
-        sql_string = "UPDATE book SET name = %s, keywords = %s, quantity = %s, author = %s, publisher = %s WHERE name = %s"
-        self.db.execute(sql_string, (book.name, book.keywords, book.quantity, new_author_id, new_publisher_id, name))
-
-    def get(self, id):
-        sql_string = "SELECT * FROM book WHERE id = %s"
-        self.db.execute(sql_string, (id,))
-
-        try:
-            row = self.db.fetchone()
-            name = row[1]
-            keywords = row[2]
-            quantity = row[3]
-            author_id = row[4]
-            publisher_id = row[5]
-
-            author = AuthorDAO(self.db).get(author_id)
-            publisher = PublisherDAO(self.db).get(publisher_id)
-
-            book = Book(name, keywords, quantity, author, publisher)
-            return book
-
-        except ProgrammingError:
-            raise Exception("No book with this ID")
+        filter = {"name": name}
+        update = {
+            "name": book.name,
+            "keywords": book.keywords,
+            "quantity": book.quantity,
+            "author": book.author.name,
+            "publisher": book.publisher.name
+        }
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def get_from_name(self, name):
-        sql_string = "SELECT * FROM book WHERE name = %s"
-        self.db.execute(sql_string, (name,))
+        query = self.collection.find_one({"name": name})
 
-        try:
-            row = self.db.fetchone()
-            address = row[2]
-            telephone = row[3]
+        keywords = query["keywords"]
+        quantity = query["quantity"]
+        author_name = query["author"]
+        author = AuthorDAO(self.db).get_from_name(author_name)
+        publisher_name = query["publisher"]
+        publisher = PublisherDAO(self.db).get_from_name(publisher_name)
 
-            author = Author(name, address, telephone)
-            return author
-
-        except ProgrammingError:
-            raise Exception("No book with this name")
+        book = Book(name, keywords, quantity, publisher, author)
+        return book
 
 
 class CopyDAO:
 
     def __init__(self, db):
         self.db = db
-
-    def create_table(self):
-        self.db.execute("CREATE TABLE copy (id SERIAL PRIMARY KEY,  lent BOOLEAN," +
-                        " book_id INTEGER REFERENCES book (id) ON UPDATE CASCADE)")
-        LoanDAO(self.db).delete_table()
+        self.collection = db["Copy"]
 
     def delete_table(self):
-        self.db.execute("DROP TABLE IF EXISTS copy")
+        self.db.drop_collection(self.collection)
 
     def insert(self, copy):
-        sql_string = "SELECT id FROM book WHERE name = %s"
-        self.db.execute(sql_string, (copy.book.name,))
-        book_id = self.db.fetchone()[0]
+        entry = {
+            "lent": copy.lent,
+            "book": copy.book.name
+        }
 
-        sql_string = "INSERT INTO copy (lent, book) VALUES (%s, %s)"
-        self.db.execute(sql_string, (copy.lent, book_id))
-
-        BookDAO.add_copy(copy.book.name)
+        self.collection.insert(entry)
 
     def remove(self, copy):
-        sql_string = "SELECT id FROM book WHERE name = %s"
-        self.db.execute(sql_string, (copy.book.name,))
-        book_id = self.db.fetchone()[0]
-        sql_string = "DELETE FROM copy WHERE book_id = %s and lent = FALSE"
-        self.db.execute(sql_string, (book_id,))
-        status_str = self.db.statusmessage
-        status_str = status_str.split()
+        book_name = copy.book.name
 
-        if status_str[1] == 0:
-            raise Exception("all copies lent")
-        else:
-            BookDAO.delete_copy(copy.book.name)
+        entry = {"$and": {"name" : book_name, "lent": False}}
+
+        cp = self.collection.find_one(entry)
+
+        if cp is None:
+            raise Exception("no unlent copies from %s" % book_name)
+
+        self.collection.remove(cp)
 
     def update_lent(self, id, lent):
-        sql_string = "UPDATE copy SET lent = %s WHERE id = %s"
-        self.db.execute(sql_string, (lent, id))
-
-    def get(self, id):
-        sql_string = "SELECT * FROM copy WHERE id = %s"
-        self.db.execute(sql_string, (id,))
-
-        try:
-            row = self.db.fetchone()
-            lent = row[1]
-            book_id = row[2]
-
-            book = BookDAO(self.db).get(book_id)
-
-            copy = Copy(lent, book)
-            return copy
-
-        except ProgrammingError:
-            raise Exception("No copy with this ID")
+        filter = {"_id": id}
+        update = {"lent": lent}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
     def get_any_from_book_name(self, book_name):
-        sql_string = "SELECT id FROM book WHERE name = %s"
-        self.db.execute(sql_string, (book_name,))
-        try:
-            book_id = self.db.fetchone()[0]
-        except ProgrammingError:
-            raise Exception("No book with this name")
+        query = self.collection.find_one({"book": book_name})
 
-        sql_string = "SELECT * FROM copy WHERE book_id = %s"
-        self.db.execute(sql_string, (book_id,))
+        lent = query["lent"]
+        book = BookDAO(self.db).get_from_name(book_name)
 
-        try:
-            row = self.db.fetchone()
-            lent = row[1]
-
-            book = BookDAO(self.db).get(book_id)
-
-            copy = Copy(lent, book)
-            return copy
-
-        except ProgrammingError:
-            raise Exception("No copy of this book")
+        copy = Copy(lent, book)
+        return copy
 
     def get_unlent_from_book_name(self, book_name):
-        sql_string = "SELECT id FROM book WHERE name = %s"
-        self.db.execute(sql_string, (book_name,))
-        try:
-            book_id = self.db.fetchone()[0]
-        except ProgrammingError:
-            raise Exception("No book with this name")
+        query = self.collection.find_one({"$and" : {"book": book_name, "lent": False} })
 
-        sql_string = "SELECT * FROM copy WHERE book_id = %s and lent = FALSE"
-        self.db.execute(sql_string, (book_id,))
+        if query is None:
+            raise Exception("no unlent copy from %s" % book_name)
 
-        try:
-            row = self.db.fetchone()
-            lent = row[1]
+        book = BookDAO(self.db).get_from_name(book_name)
 
-            book = BookDAO(self.db).get(book_id)
-
-            copy = Copy(lent, book)
-            return copy
-
-        except ProgrammingError:
-            raise Exception("No unlent copy of this book")
+        copy = Copy(False, book)
+        return copy
 
 
 class LoanDAO:
 
     def __init__(self, db):
         self.db = db
-
-    def create_table(self):
-        self.db.execute("CREATE TABLE loan (id SERIAL PRIMARY KEY, loan_date DATE NOT NULL, return_date DATE, " +
-                        "copy_id INTEGER NOT NULL REFERENCES copy (id) ON UPDATE CASCADE," +
-                        " user_id INTEGER NOT NULL REFERENCES library_user (id) ON UPDATE CASCADE )")
+        self.collection = db["Loan"]
 
     def delete_table(self):
-        self.db.execute("DROP TABLE IF EXISTS loan CASCADE")
+        self.db.drop_collection(self.collection)
 
     def insert(self, loan):
+        entry = {
+            "loan_date": loan.loan_date,
+            "return_date": loan.return_date,
+            "copy": loan.copy.book.name,
+            "user": loan.user.name
+        }
 
-        sql_string = "SELECT id FROM library_user WHERE name = %s"
-        self.db.execute(sql_string, (loan.user.name,))
-        user_id = self.db.fetchone()[0]
-
-        sql_string = "SELECT id FROM copy WHERE lent = FALSE "
-        self.db.execute(sql_string)
-
-        if self.db.rowcount > 0:
-            copy_id = self.db.fetchone()[0]
-
-            sql_string = "INSERT INTO loan (loan_date, return_date, copy_id, user_id) VALUES (%s, %s, %s, %s)"
-            self.db.execute(sql_string, (loan.loan_date, loan.return_date, copy_id, user_id))
-
-            CopyDAO.update_lent(copy_id, True)
-        else:
-            raise Exception("all copies lent!")
+        self.collection.insert(entry)
 
     def remove(self, loan):
+        book_name = loan.copy.book.name
+        user_name = loan.user.name
+        query = {"$and" : {"copy":book_name, "user":user_name}}
+        ln = self.collection.find_one(query)
 
-        sql_string = "SELECT id FROM library_user WHERE name = %s"
-        self.db.execute(sql_string, (loan.user.name,))
-        user_id = self.db.fetchone()[0]
+        if ln is None:
+            raise Exception("No loan from %s with %s" % (user_name, book_name))
 
-        sql_string = "SELECT id FROM book where name = %s"
-        data = (loan.copy.book.name,)
-        self.db.execute(sql_string, data)
-        book_id = self.db.fetchone()[0]
+        self.collection.remove(ln)
 
-        sql_string = "SELECT id FROM copy WHERE book_id = %s AND lent = TRUE "
-        self.db.execute(sql_string, book_id)
-
-        if self.db.rowcount > 0:
-            copy_id = self.db.fetchone()[0]
-
-            sql_string = "DELETE FROM loan WHERE copy_id = %s AND user_id = %s"
-            self.db.execute(sql_string, (copy_id, user_id))
-
-            CopyDAO.update_lent(copy_id, False)
-        else:
-            raise Exception("no copies lent!")
-
-    def get(self, id):
-        sql_string = "SELECT * FROM loan WHERE id = %s"
-        self.db.execute(sql_string, (id,))
-
+    def update_loan_date(self, id, loan_date):
         try:
-            row = self.db.fetchone()
-            loan_date = row[2]
-            return_date = row[3]
-            copy_id = row[4]
-            user_id = row[5]
+            Loan.validate_loan_date(loan_date)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid loan date")
 
-            copy = CopyDAO(self.db).get(copy_id)
-            user = LibraryUserDAO(self.db).get(user_id)
+        filter = {"_id": id}
+        update = {"loan_date": loan_date}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
-            loan = Loan(copy, user, loan_date, return_date)
-            return loan
-
-        except ProgrammingError:
-            raise Exception("No Loan with this ID")
-
-    def get_all_from_user(self, user_id):
-        sql_string = "SELECT * FROM loan WHERE user_id = %s"
-        self.db.execute(sql_string, (user_id,))
-
+    def update_return_date(self, id, return_date):
         try:
-            row = self.db.fetchone()
-            loan_date = row[2]
-            return_date = row[3]
-            copy_id = row[4]
+            Loan.validate_return_date(return_date)
+        except InvalidFieldException:
+            raise InvalidFieldException("Invalid return date")
 
-            copy = CopyDAO(self.db).get(copy_id)
-            user = LibraryUserDAO(self.db).get(user_id)
+        filter = {"_id": id}
+        update = {"return_date": return_date}
+        self.collection.update_one(filter, {"$set": update}, upsert=False)
 
-            loan = Loan(copy, user, loan_date, return_date)
-            return loan
-
-        except ProgrammingError:
-            raise Exception("No loan from this user")
-
+    

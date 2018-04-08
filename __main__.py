@@ -11,14 +11,15 @@ if db == "Postgresql" :
     from Control.PostgresqlDAOs import *
 
     conn = psycopg2.connect(uri)
-    cursor = conn.cursor()
-    cursor.close()
+    database = conn.cursor()
 
 elif db == "MongoDB":
     import pymongo
     from Control.MongoDAOs import *
 
     conn = pymongo.MongoClient(uri)
+    database = conn.PBD_library
+
 
 
 

@@ -241,19 +241,35 @@ class MainWindow:
         selection = self.listbox.curselection()
         item = self.listbox.get(selection)
 
+        digits = []
+        for s in item.split():
+            if s.isdigit():
+                digits.append(s)
+
+        id = int(digits[0])
         copy_dao = self.dao_factory.get_CopyDAO()
 
-        copy_dao.remove(item)
+        copy = copy_dao.get(id)
+
+        copy_dao.remove(copy)
 
         self.listbox.delete(selection)
 
     def delete_loan(self):
         selection = self.listbox.curselection()
         item = self.listbox.get(selection)
+        digits = []
+        for s in item.split():
+            if s.isdigit():
+                digits.append(s)
+
+        id = int(digits[0])
 
         loan_dao = self.dao_factory.get_LoanDAO()
+        loan = loan_dao.get_from_copy_id(id)
 
-        loan_dao.remove(item)
+        loan_dao.remove(loan)
+        print(item)
 
         self.listbox.delete(selection)
 

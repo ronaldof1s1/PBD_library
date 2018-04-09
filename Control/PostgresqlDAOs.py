@@ -702,6 +702,25 @@ class LoanDAO:
         except ProgrammingError:
             raise Exception("No Loan with this ID")
 
+    def get_from_copy_id(self, id):
+        sql_string = "SELECT * FROM loan WHERE copy_id = %s"
+        self.db.execute(sql_string, (id,))
+
+        try:
+            row = self.db.fetchone()
+            loan_date = row[2]
+            return_date = row[3]
+            user_id = row[5]
+
+            copy = CopyDAO(self.db).get(id)
+            user = LibraryUserDAO(self.db).get(user_id)
+
+            loan = Loan(copy, user, loan_date, return_date)
+            return loan
+
+        except ProgrammingError:
+            raise Exception("No Loan with this ID")
+
     def get_all_from_user(self, user_name):
         sql_string = "SELECT id from library_user WHERE name = %s"
         self.db.execute(sql_string, (user_name,))

@@ -1,7 +1,7 @@
 
 from enum import Enum, unique
 from tkinter import *
-
+from .AddWindows import *
 
 @unique
 class views(Enum):
@@ -11,6 +11,7 @@ class views(Enum):
     BOOKS = 4
     COPIES = 5
     LOANS = 6
+    NONE = 7
 
 
 class MainWindow:
@@ -67,7 +68,7 @@ class MainWindow:
 
     def show_authors(self):
         if self.current_view == views.AUTHORS:
-            return
+            self.update()
 
         self.listbox.delete(0,END)
 
@@ -81,65 +82,66 @@ class MainWindow:
 
     def show_publishers(self):
         if self.current_view == views.PUBLISHERS:
-            return
+            self.update()
 
         self.listbox.delete(0,END)
 
         publisher_dao = self.dao_factory.get_PublisherDAO()
         publishers = publisher_dao.get_all()
 
-        self.listbox.insert(END, publishers)
+        self.listbox.insert(END, *publishers)
 
         self.current_view = views.PUBLISHERS
 
     def show_users(self):
         if self.current_view == views.USERS:
-            return
+            self.update()
 
         self.listbox.delete(0,END)
 
         user_dao = self.dao_factory.get_UserDAO()
         users = user_dao.get_all()
 
-        self.listbox.insert(END, users)
+        self.listbox.insert(END, *users)
 
         self.current_view = views.USERS
 
     def show_books(self):
         if self.current_view == views.BOOKS:
-            return
+            self.update()
 
         self.listbox.delete(0,END)
 
         books_dao = self.dao_factory.get_BookDAO()
         books = books_dao.get_all()
 
-        self.listbox.insert(END, books)
+        self.listbox.insert(END, *books)
 
         self.current_view = views.BOOKS
 
     def show_copies(self):
         if self.current_view == views.COPIES:
-            return
+            self.update()
 
         self.listbox.delete(0,END)
 
         copy_dao = self.dao_factory.get_CopyDAO()
         copies = copy_dao.get_all()
 
-        self.listbox.insert(END, copies)
+
+        self.listbox.insert(END, *copies)
         self.current_view = views.COPIES
 
     def show_loans(self):
         if self.current_view == views.LOANS:
-            return
+            self.update()
 
         self.listbox.delete(0,END)
 
         loan_dao = self.dao_factory.get_LoanDAO()
         loans = loan_dao.get_all()
 
-        self.listbox.insert(END, loans)
+        self.listbox.insert(END, *loans)
         self.current_view = views.LOANS
 
     #ADD FUNCTIONS
@@ -158,23 +160,26 @@ class MainWindow:
         else:
             self.add_loan()
 
+        self.update()
+
     def add_author(self):
-        pass
+
+        Add_author_window(self.master, self.dao_factory)
 
     def add_publisher(self):
-        pass
+        Add_publisher_window(self.master, self.dao_factory)
 
     def add_user(self):
-        pass
+        Add_user_window(self.master, self.dao_factory)
 
     def add_book(self):
-        pass
+        Add_book_window(self.master, self.dao_factory)
 
     def add_copy(self):
-        pass
+        Add_copy_window(self.master, self.dao_factory)
 
     def add_loan(self):
-        pass
+        Add_loan_window(self.master, self.dao_factory)
 
     #DELETE FUNCTIONS
 
@@ -285,3 +290,26 @@ class MainWindow:
 
     def edit_loan(self):
         pass
+
+    #other functions
+    def update(self):
+        view = self.current_view
+        self.current_view = views.NONE
+
+        selection = self.listbox.curselection()
+
+        if view == views.AUTHORS:
+            self.show_authors()
+        elif view == views.PUBLISHERS:
+            self.show_publishers()
+        elif view == views.USERS:
+            self.show_users()
+        elif view == views.BOOKS:
+            self.show_books()
+        elif view == views.COPIES:
+            self.show_copies()
+        else:
+            self.show_loans()
+
+        if selection:
+            self.listbox.select_set(selection[0])

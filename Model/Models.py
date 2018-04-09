@@ -33,15 +33,14 @@ class Author:
             raise InvalidFieldException("invalid name")
 
     def validate_address(self, address):
-        if address == "" or not isinstance(address, str):
+        if not isinstance(address, str):
             raise InvalidFieldException("invalid address")
 
     def validate_telephone(self,telephone):
-        if telephone == "" or not telephone.isdigit():
-            raise InvalidFieldException("invalid telephone")
+        if not telephone == "":
+            if not telephone.isdigit() or not isinstance(telephone, str):
+                raise InvalidFieldException("invalid telephone")
 
-        if len(telephone) != 9 or not isinstance(telephone, str):
-            raise InvalidFieldException("invalid telephone")
 
 
 class Book:
@@ -51,7 +50,7 @@ class Book:
         try:
             self.validate_name(name)
             self.validate_keywords(keywords)
-            self.validade_quantity(quantity)
+            self.validate_quantity(quantity)
         except InvalidFieldException:
             raise InvalidRegisterException("Invalid Book")
 
@@ -69,12 +68,13 @@ class Book:
             raise InvalidFieldException("invalid name")
 
     def validate_quantity(self, quantity):
-        if quantity < 0 or not isinstance(quantity, int):
+        if not isinstance(quantity, int) or quantity < 0 :
             raise InvalidFieldException("invalid quantity")
 
     def validate_keywords(self, keywords):
-        if keywords == [] or not keywords[0] == "" or not isinstance(keywords[0], str):
-            raise InvalidFieldException("invalid telephone")
+        if keywords != []:
+            if not isinstance(keywords[0], str):
+                raise InvalidFieldException("invalid keywords")
 
 
 class Copy:
@@ -84,14 +84,14 @@ class Copy:
         try:
             self.validate_id(id)
         except InvalidFieldException:
-            raise InvalidRegisterException("Invalid ")
+            raise InvalidRegisterException("Invalid Copy")
 
         self.id = id
         self.lent = lent
         self.book = book
 
     def __str__(self):
-        return self.id + ": " + self.book.name
+        return str(self.id) + " - " + self.book.name + ": " + str(self.lent)
 
     def validate_id(self, id):
         if not isinstance(id, int) or id < 1:
@@ -105,7 +105,7 @@ class LibraryUser:
         try:
             self.validate_name(name)
             self.validate_address(address)
-            self.validade_telephone(telephone)
+            self.validate_telephone(telephone)
             self.validate_student(student)
         except InvalidFieldException:
             raise InvalidRegisterException("Invalid User")
@@ -126,17 +126,15 @@ class LibraryUser:
             raise InvalidFieldException("invalid name")
 
     def validate_address(self, address):
-        if address == "" or not isinstance(address, str):
+        if not isinstance(address, str):
             raise InvalidFieldException("invalid address")
 
     def validate_telephone(self,telephone):
-        if telephone == "" or not telephone.isdigit():
-            raise InvalidFieldException("invalid telephone")
+        if not telephone == "":
+            if not telephone.isdigit() or not isinstance(telephone, str):
+                raise InvalidFieldException("invalid telephone")
 
-        if telephone.len() != 9 or not isinstance(telephone, str):
-            raise InvalidFieldException("invalid telephone")
-
-    def validade_student(self,student):
+    def validate_student(self,student):
         if not isinstance(student, bool):
             raise InvalidFieldException("invalid Student")
 
@@ -163,7 +161,7 @@ class Loan:
         self.user = user
 
     def __str__(self):
-        return self.copy + " -> " + self.user
+        return str(self.copy) + " -> " + str(self.user)
 
     def validate_loan_date(self, loan_date):
         if loan_date > date.today() or not isinstance(loan_date, date):
@@ -181,7 +179,7 @@ class Publisher:
         try:
             self.validate_name(name)
             self.validate_address(address)
-            self.validade_telephone(telephone)
+            self.validate_telephone(telephone)
         except InvalidFieldException:
             raise InvalidRegisterException("Invalid publisher")
 
@@ -201,12 +199,10 @@ class Publisher:
             raise InvalidFieldException("invalid name")
 
     def validate_address(self, address):
-        if address == "" or not isinstance(address, str):
+        if not isinstance(address, str):
             raise InvalidFieldException("invalid address")
 
     def validate_telephone(self,telephone):
-        if telephone == "" or not telephone.isdigit():
-            raise InvalidFieldException("invalid telephone")
-
-        if telephone.len() != 9 or not isinstance(telephone, str):
-            raise InvalidFieldException("invalid telephone")
+        if not telephone == "":
+            if not telephone.isdigit() or not isinstance(telephone, str):
+                raise InvalidFieldException("invalid telephone")

@@ -11,6 +11,7 @@ if db == "Postgresql" :
     import psycopg2
 
     conn = psycopg2.connect(uri)
+    conn.set_session(autocommit=True)
     database = conn.cursor()
 
 elif db == "MongoDB":

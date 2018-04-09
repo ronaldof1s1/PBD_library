@@ -7,6 +7,7 @@ class AuthorDAO:
 
     def __init__(self, db):
         self.db = db
+        self.connection = db.connection
 
     def create_table(self):
         self.db.execute("CREATE TABLE author (id SERIAL PRIMARY KEY, name TEXT NOT NULL UNIQUE, address TEXT, telephone TEXT)")
@@ -24,8 +25,8 @@ class AuthorDAO:
             name = author
         elif isinstance(author, Author):
             name = author.name
-        sql_string = "DELETE FROM author WHERE name=%s"
-        self.db.execute(sql_string, name)
+        sql_string = "DELETE FROM author WHERE name = %s"
+        self.db.execute(sql_string, (name,))
 
     def update_name(self, old_name, new_name):
         try:
@@ -129,8 +130,8 @@ class PublisherDAO:
             name = publisher
         elif isinstance(publisher, Publisher):
             name = publisher.name
-        sql_string = "DELETE FROM publisher WHERE name=%s"
-        self.db.execute(sql_string, name)
+        sql_string = "DELETE FROM publisher WHERE name = %s"
+        self.db.execute(sql_string, (name,))
 
     def update_name(self, old_name, new_name):
         try:
@@ -337,16 +338,25 @@ class BookDAO:
 
     def create_table(self):
         self.db.execute("CREATE TABLE book (id SERIAL PRIMARY KEY, name TEXT NOT NULL UNIQUE, keywords TEXT[], " +
-                        "quantity INTEGER, publisher_id INTEGER REFERENCES  publisher (id) ON UPDATE CASCADE, " +
-                        "author_id INTEGER REFERENCES author (id))")
+                        "quantity INTEGER, publisher_id INTEGER REFERENCES  publisher (id) ON UPDATE CASCADE ON DELETE CASCADE, " +
+                        "author_id INTEGER REFERENCES author (id) ON UPDATE CASCADE ON DELETE CASCADE)")
 
     def delete_table(self):
         self.db.execute("DROP TABLE IF EXISTS book")
         CopyDAO(self.db).delete_table()
 
     def insert(self, book):
-        sql_string = "INSERT INTO book (name, keywords, publisher, author) VALUES (%s, %s, %s, %s)"
-        self.db.execute(sql_string, (book.name, book.keywords, book.publisher, book.author))
+        sql_string = "SELECT id FROM author WHERE name = %s"
+        self.db.execute(sql_string, (book.author.name,))
+        author_id = self.db.fetchone()[0]
+
+        sql_string = "SELECT id FROM publisher WHERE name = %s"
+        self.db.execute(sql_string, (book.publisher.name,))
+        publisher_id = self.db.fetchone()[0]
+
+        sql_string = "INSERT INTO book (name, keywords, quantity, publisher_id, author_id) VALUES (%s, %s, %s, %s, %s)"
+        data = (book.name, book.keywords, book.quantity, publisher_id, author_id)
+        self.db.execute(sql_string, data)
 
     def remove(self, book):
         if isinstance(book, str):
@@ -420,7 +430,7 @@ class BookDAO:
         self.db.execute(sql_string, (book.publisher.name,))
         new_publisher_id = self.db.fetchone()[0]
 
-        sql_string = "UPDATE book SET name = %s, keywords = %s, quantity = %s, author = %s, publisher = %s WHERE name = %s"
+        sql_string = "UPDATE book SET name = %s, keywords = %s, quantity = %s, author_id = %s, publisher_id = %s WHERE name = %s"
         self.db.execute(sql_string, (book.name, book.keywords, book.quantity, new_author_id, new_publisher_id, name))
 
     def get(self, id):
@@ -432,13 +442,13 @@ class BookDAO:
             name = row[1]
             keywords = row[2]
             quantity = row[3]
-            author_id = row[4]
-            publisher_id = row[5]
+            publisher_id = row[4]
+            author_id = row[5]
 
             author = AuthorDAO(self.db).get(author_id)
             publisher = PublisherDAO(self.db).get(publisher_id)
 
-            book = Book(name, keywords, quantity, author, publisher)
+            book = Book(name, keywords, quantity, publisher, author)
             return book
 
         except ProgrammingError:
@@ -450,11 +460,16 @@ class BookDAO:
 
         try:
             row = self.db.fetchone()
-            address = row[2]
-            telephone = row[3]
+            keywords = row[2]
+            quantity = row[3]
+            publisher_id = row[4]
+            author_id = row[5]
 
-            author = Author(name, address, telephone)
-            return author
+            author = AuthorDAO(self.db).get(author_id)
+            publisher = PublisherDAO(self.db).get(publisher_id)
+
+            book = Book(name, keywords, quantity, publisher, author)
+            return book
 
         except ProgrammingError:
             raise Exception("No book with this name")
@@ -489,22 +504,24 @@ class CopyDAO:
         self.db = db
 
     def create_table(self):
-        self.db.execute("CREATE TABLE copy (copy_id SERIAL PRIMARY KEY,  id INTEGER NOT NULL UNIQUE, lent BOOLEAN," +
-                        " book_id INTEGER REFERENCES book (id) ON UPDATE CASCADE)")
+        self.db.execute("CREATE TABLE copy (copy_id SERIAL PRIMARY KEY,  id INTEGER NOT NULL UNIQUE, " +
+                        "lent BOOLEAN NOT NULL, book_id INTEGER REFERENCES book (id) ON UPDATE CASCADE ON DELETE CASCADE)")
         LoanDAO(self.db).delete_table()
 
     def delete_table(self):
         self.db.execute("DROP TABLE IF EXISTS copy")
 
     def insert(self, copy):
+        book_name = copy.book.name
+
         sql_string = "SELECT id FROM book WHERE name = %s"
-        self.db.execute(sql_string, (copy.book.name,))
+        self.db.execute(sql_string, (book_name,))
         book_id = self.db.fetchone()[0]
 
-        sql_string = "INSERT INTO copy (id, lent, book) VALUES (%s, %s, %s)"
+        sql_string = "INSERT INTO copy (id, lent, book_id) VALUES (%s, %s, %s)"
         self.db.execute(sql_string, (copy.id, copy.lent, book_id))
 
-        BookDAO.add_copy(copy.book.name)
+        BookDAO(self.db).add_copy(book_name)
 
     def remove(self, copy):
 
@@ -528,12 +545,12 @@ class CopyDAO:
 
         try:
             row = self.db.fetchone()
-            lent = row[1]
-            book_id = row[2]
+            lent = row[2]
+            book_id = row[3]
 
             book = BookDAO(self.db).get(book_id)
             
-            copy = Copy(lent, book)
+            copy = Copy(id, lent, book)
             return copy
 
         except ProgrammingError:
@@ -553,11 +570,12 @@ class CopyDAO:
 
         try:
             row = self.db.fetchone()
-            lent = row[1]
+            id = row[1]
+            lent = row[2]
 
             book = BookDAO(self.db).get(book_id)
 
-            copy = Copy(lent, book)
+            copy = Copy(id, lent, book)
             return copy
 
         except ProgrammingError:
@@ -635,7 +653,7 @@ class LoanDAO:
             sql_string = "INSERT INTO loan (loan_date, return_date, copy_id, user_id) VALUES (%s, %s, %s, %s)"
             self.db.execute(sql_string,(loan.loan_date, loan.return_date, copy_id, user_id))
 
-            CopyDAO.update_lent(copy_id, True)
+            CopyDAO(self.db).update_lent(copy_id, True)
         else:
             raise Exception("all copies lent!")
 

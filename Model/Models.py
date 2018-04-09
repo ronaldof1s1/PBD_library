@@ -14,7 +14,7 @@ class Author:
         try:
             self.validate_name(name)
             self.validate_address(address)
-            self.validade_telephone(telephone)
+            self.validate_telephone(telephone)
         except InvalidFieldException:
             raise InvalidRegisterException("Invalid Author")
 
@@ -40,7 +40,7 @@ class Author:
         if telephone == "" or not telephone.isdigit():
             raise InvalidFieldException("invalid telephone")
 
-        if telephone.len() != 9 or not isinstance(telephone, str):
+        if len(telephone) != 9 or not isinstance(telephone, str):
             raise InvalidFieldException("invalid telephone")
 
 

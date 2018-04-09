@@ -1,6 +1,7 @@
 from Model.Models import *
 from ConfigReader import ConfigReader
-
+from View.MainWindow import *
+from DAOFactory import  DAOFactory
 cr = ConfigReader("configfile.json")
 
 db = cr.get_DB()
@@ -8,19 +9,22 @@ uri = cr.get_uri()
 
 if db == "Postgresql" :
     import psycopg2
-    from Control.PostgresqlDAOs import *
 
     conn = psycopg2.connect(uri)
     database = conn.cursor()
 
 elif db == "MongoDB":
     import pymongo
-    from Control.MongoDAOs import *
 
-    conn = pymongo.MongoClient(uri)
-    database = conn.PBD_library
+    conn = pymongo.MongoClient()
+    database = conn.PBDLIBRARY
 
 
+dao_factory = DAOFactory(db, database)
+
+root = Tk()
+main_window = MainWindow(root, dao_factory)
+root.mainloop()
 
 
 conn.close()

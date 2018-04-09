@@ -605,7 +605,7 @@ class LoanDAO:
             return_date = row["return_date"]
             copy_id = row["copy"]
             user_name = row["user"]
-            
+
             copy = CopyDAO(self.db).get(copy_id)
             user = LibraryUserDAO(self.db).get_from_name(user_name)
 

@@ -1,5 +1,6 @@
 from sys import path
 path.append("..")
+from datetime import datetime
 
 from Model.Models import *
 
@@ -411,7 +412,7 @@ class BookDAO:
 
         for row in rows:
             name = row["name"]
-            keywords = row["keyword"]
+            keywords = row["keywords"]
             quantity = row["quantity"]
             publisher_name = row["publisher"]
             author_name = row["author"]
@@ -444,24 +445,16 @@ class CopyDAO:
         self.collection.insert(entry)
 
     def remove(self, copy):
-        book_name = copy.book.name
 
-        entry = {"$and": {"name" : book_name, "lent": False}}
-
-        cp = self.collection.find_one(entry)
-
-        if cp is None:
-            raise Exception("no unlent copies from %s" % book_name)
-
-        self.collection.remove(cp)
+        self.collection.remove(copy.id)
 
     def update_lent(self, id, lent):
         filter = {"id": id}
         update = {"lent": lent}
-        self.collection.update_one(filter, {"$set": update}, upsert=False)
+        self.collection.update_one(filter, {'$set': update}, upsert=False)
 
     def get(self, id):
-        query = self.collection.find_one({"book": book_name})
+        query = self.collection.find_one({"id": id})
 
         book_name = query["book"]
         lent = query["lent"]
@@ -481,7 +474,7 @@ class CopyDAO:
         return copy
 
     def get_unlent_from_book_name(self, book_name):
-        query = self.collection.find_one({"$and" : {"book": book_name, "lent": False} })
+        query = self.collection.find_one({"$and" : [{"book": book_name}, {"lent": False}] })
 
         if query is None:
             raise Exception("no unlent copy from %s" % book_name)
@@ -520,22 +513,22 @@ class LoanDAO:
 
     def insert(self, loan):
 
+        copy_id = loan.copy.id
         entry = {
             "loan_date": loan.loan_date,
             "return_date": loan.return_date,
-            "copy": loan.copy.id,
+            "copy": copy_id,
             "user": loan.user.name
         }
-
         copydao = CopyDAO(self.db)
-        copydao.update_lent(id, True)
+        copydao.update_lent(copy_id, True)
 
         self.collection.insert(entry)
 
     def remove(self, loan):
         copy_id = loan.copy.id
         user_name = loan.user.name
-        query = {"$and" : {"copy":copy_id, "user":user_name}}
+        query = {"$and" : [{"copy":copy_id}, {"user":user_name}]}
         ln = self.collection.find_one(query)
 
         if ln is None:
@@ -577,6 +570,20 @@ class LoanDAO:
         user = LibraryUserDAO(self.db).get_from_name(user_name)
 
         loan = Loan(copy, user,loan_date, return_date)
+
+        return loan
+
+    def get_from_copy_id(self, id):
+        row = self.collection.find_one({"copy": id})
+
+        loan_date = row["loan_date"]
+        return_date = row["return_date"]
+        user_name = row["user"]
+
+        copy = CopyDAO(self.db).get(id)
+        user = LibraryUserDAO(self.db).get_from_name(user_name)
+
+        loan = Loan(copy, user, loan_date, return_date)
 
         return loan
 

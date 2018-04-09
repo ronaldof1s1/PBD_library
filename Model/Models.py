@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 
 class InvalidFieldException(Exception):
     pass
@@ -141,7 +141,7 @@ class LibraryUser:
 
 class Loan:
 
-    def __init__(self, copy, user, loan_date = date.today(), return_date = date.max):
+    def __init__(self, copy, user, loan_date = datetime.today(), return_date = datetime.max):
 
         try:
             self.validate_loan_date(loan_date)
@@ -164,11 +164,11 @@ class Loan:
         return str(self.copy) + " -> " + str(self.user)
 
     def validate_loan_date(self, loan_date):
-        if loan_date > date.today() or not isinstance(loan_date, date):
+        if loan_date > datetime.today() or not isinstance(loan_date, datetime):
             raise InvalidFieldException("invalid loan_date")
 
     def validate_return_date(self, return_date):
-        if return_date < self.loan_date or return_date < date.today() or not isinstance(return_date, date):
+        if return_date < self.loan_date or return_date < datetime.today() or not isinstance(return_date, datetime):
             raise InvalidFieldException("invalid return date")
 
 

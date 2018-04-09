@@ -417,9 +417,6 @@ class Add_loan_window:
         loan_datetime = datetime.strptime(loan_date_string, "%d/%m/%Y")
         return_datetime = datetime.strptime(return_date_string, "%d/%m/%Y")
 
-        loan_date = loan_datetime.date()
-        return_date = return_datetime.date()
-
         copy_name = self.copy_name.get()
         copy_id = copy_name.split()[0]
         copy_id = int(copy_id)
@@ -429,7 +426,7 @@ class Add_loan_window:
 
         user = self.dao_factory.get_UserDAO().get_from_name(user_name)
         copy = self.dao_factory.get_CopyDAO().get(copy_id)
-        loan = Loan(copy, user, loan_date, return_date)
+        loan = Loan(copy, user, loan_datetime, return_datetime)
 
         loan_dao = self.dao_factory.get_LoanDAO()
         loan_dao.insert(loan)

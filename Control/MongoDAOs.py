@@ -453,6 +453,12 @@ class CopyDAO:
         update = {"lent": lent}
         self.collection.update_one(filter, {'$set': update}, upsert=False)
 
+    def update(self, id, copy):
+        filter = {"id": id}
+        update = {"id":copy.id, "lent":copy.lent, "book":copy.book.name}
+
+        self.collection.update_one(filter, {'$set': update}, upsert=False)
+
     def get(self, id):
         query = self.collection.find_one({"id": id})
 
@@ -538,6 +544,12 @@ class LoanDAO:
 
         CopyDAO(self.db).update_lent(copy_id, False)
 
+    def update(self, copy_id, loan):
+        filter = {"copy": copy_id}
+        update = {"loan_date": loan.loan_date, "return_date": loan.return_date, "copy": loan.copy, "user":loan.user}
+
+        self.collection.update_one(filter, {'$set': update}, upsert=False)
+
     def update_loan_date(self, id, loan_date):
         try:
             Loan.validate_loan_date(loan_date)
@@ -603,6 +615,7 @@ class LoanDAO:
             loans.append(loan)
 
         return loans
+
     def get_all(self):
         rows = self.collection.find({})
         loans = []

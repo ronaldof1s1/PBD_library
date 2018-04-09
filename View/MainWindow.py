@@ -2,6 +2,7 @@
 from enum import Enum, unique
 from tkinter import *
 from .AddWindows import *
+from .EditWindows import *
 
 @unique
 class views(Enum):
@@ -276,36 +277,68 @@ class MainWindow:
     #EDIT FUNCTIONS
 
     def edit(self):
+        selection = self.listbox.curselection()
+        item = self.listbox.get(selection)
+
         if self.current_view == views.AUTHORS:
-            self.edit_author()
+            self.edit_author(item)
         elif self.current_view == views.PUBLISHERS:
-            self.edit_publisher()
+            self.edit_publisher(item)
         elif self.current_view == views.USERS:
-            self.edit_user()
+            self.edit_user(item)
         elif self.current_view == views.BOOKS:
-            self.edit_book()
+            self.edit_book(item)
         elif self.current_view == views.COPIES:
-            self.edit_copy()
+            self.edit_copy(item)
         else:
-            self.edit_loan()
+            self.edit_loan(item)
 
-    def edit_author(self):
-        pass
+    def edit_author(self, item):
+        author_dao = self.dao_factory.get_AuthorDAO()
+        author = author_dao.get_from_name(item)
+        Edit_author_window(self.master, self.dao_factory, author)
 
-    def edit_publisher(self):
-        pass
+    def edit_publisher(self, item):
+        publisher_dao = self.dao_factory.get_PublisherDAO()
+        publisher = publisher_dao.get_from_name(item)
+        Edit_publisher_window(self.master, self.dao_factory, publisher)
 
-    def edit_user(self):
-        pass
+    def edit_user(self, item):
+        user_dao = self.dao_factory.get_UserDAO()
+        user = user_dao.get_from_name(item)
+        Edit_user_window(self.master, self.dao_factory, user)
 
-    def edit_book(self):
-        pass
+    def edit_book(self, item):
+        book_dao = self.dao_factory.get_BookDAO()
+        book = book_dao.get_from_name(item)
+        Edit_book_window(self.master, self.dao_factory, book)
 
-    def edit_copy(self):
-        pass
+    def edit_copy(self, item):
+        digits = []
+        for s in item.split():
+            if s.isdigit():
+                digits.append(s)
 
-    def edit_loan(self):
-        pass
+        id = int(digits[0])
+        copy_dao = self.dao_factory.get_CopyDAO()
+
+        copy = copy_dao.get(id)
+
+        Edit_copy_window(self.master, self.dao_factory, copy)
+
+    def edit_loan(self, item):
+        digits = []
+        for s in item.split():
+            if s.isdigit():
+                digits.append(s)
+
+        id = int(digits[0])
+
+        loan_dao = self.dao_factory.get_LoanDAO()
+        loan = loan_dao.get_from_copy_id(id)
+
+        Edit_loan_window(self.master, self.dao_factory, loan)
+
 
     #other functions
     def update(self):

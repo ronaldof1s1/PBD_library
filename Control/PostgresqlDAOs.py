@@ -539,6 +539,17 @@ class CopyDAO:
         sql_string = "UPDATE copy SET lent = %s WHERE id = %s"
         self.db.execute(sql_string, (lent, id))
 
+    def update(self, id, copy):
+        sql_string = "SELECT id FROM book WHERE name = %s"
+        self.db.execute(sql_string, (copy.book.name))
+        book_id = self.db.fetchone()[0]
+
+        sql_string = "UPDATE copy SET id = %s, lent = %s, book_id = %s, WHERE id = %s"
+
+        data = (copy.id, copy.lent, book_id, id)
+
+        self.db.execute(sql_string, data)
+
     def get(self, id):
         sql_string = "SELECT * FROM copy WHERE id = %s"
         self.db.execute(sql_string, (id,))
@@ -681,6 +692,17 @@ class LoanDAO:
             CopyDAO.update_lent(copy_id, False)
         else:
             raise Exception("no copies lent!")
+
+    def update(self, copy_id, loan):
+        sql_string = "SELECT id FROM user WHERE name = %s"
+        self.db.execute(sql_string, (loan.user.name))
+        user_id = self.db.fetchone()[0]
+
+        sql_string = "UPDATE loan SET loan_date = %s, return_date = %s, copy_id = %s, user_id = %s, WHERE copy_id = %s"
+
+        data = (loan.loan_date, loan.return_date, loan.copy.id, user_id, copy_id)
+
+        self.db.execute(sql_string, data)
 
     def get(self, id):
         sql_string = "SELECT * FROM loan WHERE id = %s"

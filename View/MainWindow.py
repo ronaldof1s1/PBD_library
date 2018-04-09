@@ -13,7 +13,6 @@ class views(Enum):
     LOANS = 6
 
 
-
 class MainWindow:
     def __init__(self, master, dao_factory):
 
@@ -39,9 +38,9 @@ class MainWindow:
 
         self.listbox = Listbox(self.list_frame)
 
-        self.add_button = Button(self.actions_frame, text="ADD", bg="LIGHTGREEN")
-        self.delete_button = Button(self.actions_frame, text="REMOVE", bg="LIGHTGREEN")
-        self.edit_button = Button(self.actions_frame, text="EDIT", bg="LIGHTGREEN")
+        self.add_button = Button(self.actions_frame, text="ADD", bg="LIGHTGREEN", command=self.add)
+        self.delete_button = Button(self.actions_frame, text="REMOVE", bg="LIGHTGREEN", command=self.delete)
+        self.edit_button = Button(self.actions_frame, text="EDIT", bg="LIGHTGREEN", command=self.edit)
 
 
         #LAYOUT
@@ -64,6 +63,8 @@ class MainWindow:
         self.edit_button.grid(row=2, column=0, sticky=W+E+S+N, ipady=20)
 
 
+    #SHOW FUNCTIONS
+
     def show_authors(self):
         if self.current_view == views.AUTHORS:
             return
@@ -73,16 +74,214 @@ class MainWindow:
         author_dao = self.dao_factory.get_AuthorDAO()
         authors = author_dao.get_all()
 
-        self.listbox.insert(END, authors)
+        for author in authors:
+            self.listbox.insert(END, author)
+
+        self.current_view = views.AUTHORS
 
     def show_publishers(self):
-        pass
+        if self.current_view == views.PUBLISHERS:
+            return
+
+        self.listbox.delete(0,END)
+
+        publisher_dao = self.dao_factory.get_PublisherDAO()
+        publishers = publisher_dao.get_all()
+
+        self.listbox.insert(END, publishers)
+
+        self.current_view = views.PUBLISHERS
+
     def show_users(self):
-        pass
+        if self.current_view == views.USERS:
+            return
+
+        self.listbox.delete(0,END)
+
+        user_dao = self.dao_factory.get_UserDAO()
+        users = user_dao.get_all()
+
+        self.listbox.insert(END, users)
+
+        self.current_view = views.USERS
+
     def show_books(self):
-        pass
+        if self.current_view == views.BOOKS:
+            return
+
+        self.listbox.delete(0,END)
+
+        books_dao = self.dao_factory.get_BookDAO()
+        books = books_dao.get_all()
+
+        self.listbox.insert(END, books)
+
+        self.current_view = views.BOOKS
+
     def show_copies(self):
-        pass
+        if self.current_view == views.COPIES:
+            return
+
+        self.listbox.delete(0,END)
+
+        copy_dao = self.dao_factory.get_CopyDAO()
+        copies = copy_dao.get_all()
+
+        self.listbox.insert(END, copies)
+        self.current_view = views.COPIES
+
     def show_loans(self):
+        if self.current_view == views.LOANS:
+            return
+
+        self.listbox.delete(0,END)
+
+        loan_dao = self.dao_factory.get_LoanDAO()
+        loans = loan_dao.get_all()
+
+        self.listbox.insert(END, loans)
+        self.current_view = views.LOANS
+
+    #ADD FUNCTIONS
+
+    def add(self):
+        if self.current_view == views.AUTHORS:
+            self.add_author()
+        elif self.current_view == views.PUBLISHERS:
+            self.add_publisher()
+        elif self.current_view == views.USERS:
+            self.add_user()
+        elif self.current_view == views.BOOKS:
+            self.add_book()
+        elif self.current_view == views.COPIES:
+            self.add_copy()
+        else:
+            self.add_loan()
+
+    def add_author(self):
         pass
 
+    def add_publisher(self):
+        pass
+
+    def add_user(self):
+        pass
+
+    def add_book(self):
+        pass
+
+    def add_copy(self):
+        pass
+
+    def add_loan(self):
+        pass
+
+    #DELETE FUNCTIONS
+
+    def delete(self):
+        if self.current_view == views.AUTHORS:
+            self.delete_author()
+        elif self.current_view == views.PUBLISHERS:
+            self.delete_publisher()
+        elif self.current_view == views.USERS:
+            self.delete_user()
+        elif self.current_view == views.BOOKS:
+            self.delete_book()
+        elif self.current_view == views.COPIES:
+            self.delete_copy()
+        else:
+            self.delete_loan()
+
+    def delete_author(self):
+        selection = self.listbox.curselection()
+        item = self.listbox.get(selection)
+
+        author_dao = self.dao_factory.get_AuthorDAO()
+
+        author_dao.remove(item)
+
+        self.listbox.delete(selection)
+
+    def delete_publisher(self):
+        selection = self.listbox.curselection()
+        item = self.listbox.get(selection)
+
+        publisher_dao = self.dao_factory.get_PublisherDAO()
+
+        publisher_dao.remove(item)
+
+        self.listbox.delete(selection)
+
+    def delete_user(self):
+        selection = self.listbox.curselection()
+        item = self.listbox.get(selection)
+
+        user_dao = self.dao_factory.get_UserDAO()
+
+        user_dao.remove(item)
+
+        self.listbox.delete(selection)
+
+    def delete_book(self):
+        selection = self.listbox.curselection()
+        item = self.listbox.get(selection)
+
+        book_dao = self.dao_factory.get_BookDAO()
+
+        book_dao.remove(item)
+
+        self.listbox.delete(selection)
+
+    def delete_copy(self):
+        selection = self.listbox.curselection()
+        item = self.listbox.get(selection)
+
+        copy_dao = self.dao_factory.get_CopyDAO()
+
+        copy_dao.remove(item)
+
+        self.listbox.delete(selection)
+
+    def delete_loan(self):
+        selection = self.listbox.curselection()
+        item = self.listbox.get(selection)
+
+        loan_dao = self.dao_factory.get_LoanDAO()
+
+        loan_dao.remove(item)
+
+        self.listbox.delete(selection)
+
+    #EDIT FUNCTIONS
+
+    def edit(self):
+        if self.current_view == views.AUTHORS:
+            self.edit_author()
+        elif self.current_view == views.PUBLISHERS:
+            self.edit_publisher()
+        elif self.current_view == views.USERS:
+            self.edit_user()
+        elif self.current_view == views.BOOKS:
+            self.edit_book()
+        elif self.current_view == views.COPIES:
+            self.edit_copy()
+        else:
+            self.edit_loan()
+
+    def edit_author(self):
+        pass
+
+    def edit_publisher(self):
+        pass
+
+    def edit_user(self):
+        pass
+
+    def edit_book(self):
+        pass
+
+    def edit_copy(self):
+        pass
+
+    def edit_loan(self):
+        pass

@@ -1,6 +1,8 @@
 from sys import path
 path.append("..")
 from datetime import datetime
+min_time = datetime.min.time()
+
 
 from Model.Models import *
 
@@ -625,6 +627,9 @@ class LoanDAO:
             return_date = row["return_date"]
             copy_id = row["copy"]
             user_name = row["user"]
+
+            loan_date = datetime.combine(loan_date,min_time)
+            return_date = datetime.combine(return_date,min_time)
 
             copy = CopyDAO(self.db).get(copy_id)
             user = LibraryUserDAO(self.db).get_from_name(user_name)

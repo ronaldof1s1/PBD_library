@@ -3,6 +3,7 @@ path.append("..")
 from Model.Models import *
 from psycopg2 import ProgrammingError
 
+
 class AuthorDAO:
 
     def __init__(self, db):
@@ -541,10 +542,10 @@ class CopyDAO:
 
     def update(self, id, copy):
         sql_string = "SELECT id FROM book WHERE name = %s"
-        self.db.execute(sql_string, (copy.book.name))
+        self.db.execute(sql_string, (copy.book.name,))
         book_id = self.db.fetchone()[0]
 
-        sql_string = "UPDATE copy SET id = %s, lent = %s, book_id = %s, WHERE id = %s"
+        sql_string = "UPDATE copy SET id = %s, lent = %s, book_id = %s WHERE id = %s"
 
         data = (copy.id, copy.lent, book_id, id)
 
@@ -642,7 +643,7 @@ class LoanDAO:
         self.db = db
 
     def create_table(self):
-        self.db.execute("CREATE TABLE loan (id SERIAL PRIMARY KEY, loan_date DATE NOT NULL, return_date DATE, " +
+        self.db.execute("CREATE TABLE loan (id SERIAL PRIMARY KEY, loan_date DATETIME NOT NULL, return_date DATETIME, " +
                         "copy_id INTEGER NOT NULL REFERENCES copy (id) ON UPDATE CASCADE," +
                         " user_id INTEGER NOT NULL REFERENCES library_user (id) ON UPDATE CASCADE )")
 
@@ -730,9 +731,9 @@ class LoanDAO:
 
         try:
             row = self.db.fetchone()
-            loan_date = row[2]
-            return_date = row[3]
-            user_id = row[5]
+            loan_date = row[1]
+            return_date = row[2]
+            user_id = row[4]
 
             copy = CopyDAO(self.db).get(id)
             user = LibraryUserDAO(self.db).get(user_id)

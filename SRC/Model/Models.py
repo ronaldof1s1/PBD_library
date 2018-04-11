@@ -1,4 +1,6 @@
-from datetime import datetime
+from datetime import datetime, date
+
+min_time = datetime.min.time()
 
 class InvalidFieldException(Exception):
     pass
@@ -148,13 +150,13 @@ class Loan:
         except InvalidFieldException:
             raise InvalidRegisterException("Invalid Loan")
 
-        self.loan_date = loan_date
+        self.loan_date = datetime.combine(loan_date, min_time)
         try:
             self.validate_return_date(return_date)
         except InvalidFieldException:
             raise InvalidRegisterException("Invalid Loan")
 
-        self.return_date = return_date
+        self.return_date = datetime.combine(return_date, min_time)
 
         self.copy = copy
 
@@ -164,11 +166,19 @@ class Loan:
         return str(self.copy) + " -> " + str(self.user)
 
     def validate_loan_date(self, loan_date):
-        if loan_date > datetime.today() or not isinstance(loan_date, datetime):
+        if isinstance(loan_date,date):
+            loan_date = datetime.combine(loan_date, min_time)
+            print(loan_date)
+
+        if not isinstance(loan_date, datetime) or loan_date > datetime.now():
             raise InvalidFieldException("invalid loan_date")
 
     def validate_return_date(self, return_date):
-        if return_date < self.loan_date or return_date < datetime.today() or not isinstance(return_date, datetime):
+        if isinstance(return_date,date):
+            return_date = datetime.combine(return_date, min_time)
+            print(return_date)
+
+        if not isinstance(return_date, datetime) or return_date < self.loan_date or return_date < datetime.now():
             raise InvalidFieldException("invalid return date")
 
 

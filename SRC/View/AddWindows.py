@@ -1,9 +1,7 @@
-from tkinter import *
 from sys import path
 path.append("..")
-from Model.Models import *
 from .MainWindow import *
-from datetime import date, datetime
+from datetime import datetime
 
 class Add_author_window:
     def __init__(self, master, dao_factory):
